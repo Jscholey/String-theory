@@ -7,5 +7,6 @@
 }
 
 .tile-active {
+    color: white;
     background-color: blue;
 }
