@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import FretboardMenu from './FretboardMenu.jsx';
 
 
 class Tile extends React.Component {
@@ -16,7 +17,7 @@ class Tile extends React.Component {
 }
 
 
-/* gets passed props:
+/* Gets passed props:
 notes: eg ["A", "B" ...]
 highlighted: eg ["A#", "B"]
 changeHighlight: eg () => this swappes the higlighted status of the note
@@ -33,29 +34,55 @@ class String extends React.Component {
 }
 
 
+/* Gets passed props:
+strings:
+frets:
+highlighted:
+changeHighlight:
+*/
 class Fretboard extends React.Component {
     #notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
-
-    constructor(props) {
-        super(props);
-        this.state = {strings: ["E", "B", "G", "D", "A", "E"], // String tunings from high e to low E
-                      frets: 17,
-                      highlighted: ["A", "B", "C", "D", "E", "F", "G"]};
-    }
 
     /* Return Array */
     orderNotes = (note) => {
         var i = this.#notes.indexOf(note);
         var newNotes = this.#notes.slice(i).concat(this.#notes.slice(0,i));
-        if (this.state.frets <= 12) {
-            newNotes = newNotes.slice(0, this.state.frets);
-        } else if (this.state.frets <= 24) {
-            newNotes = newNotes.concat(newNotes.slice(0, this.state.frets - 12));
+        if (this.props.frets <= 12) {
+            newNotes = newNotes.slice(0, this.props.frets);
+        } else if (this.props.frets <= 24) {
+            newNotes = newNotes.concat(newNotes.slice(0, this.props.frets - 12));
         } else {
             newNotes = newNotes.concat(newNotes);
-            newNotes = newNotes.concat(newNotes.slice(0, this.state.frets - 12));
+            newNotes = newNotes.concat(newNotes.slice(0, this.props.frets - 12));
         }
         return newNotes;
+    }
+
+    render() {
+        var strings = [];
+        for (var note of this.props.strings) {
+            strings.push(this.orderNotes(note));
+        }
+
+        return (
+            <div>
+                {strings.map( (stringNotes) => {
+                return <String notes={stringNotes} highlighted={this.props.highlighted} changeHighlight={this.props.changeHighlight}/>
+                })}
+            </div>
+        );
+    }
+}
+
+
+class FretboardPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {strings: ["E", "B", "G", "D", "A", "E"], // String tunings from high e to low E
+                      frets: 17,
+                      highlighted: ["A", "B", "C", "D", "E", "F", "G"],
+                      key: "C",
+                      scale: "Major"};
     }
 
     /* Get a note, return an anonymous function that changes the state of the note. This function then gets passed to tiles. */
@@ -72,20 +99,45 @@ class Fretboard extends React.Component {
         }
     }
 
-    render() {
-        var strings = [];
-        for (var note of this.state.strings) {
-            strings.push(this.orderNotes(note));
-        }
+    setStringNumber = (event) => {
+        var number = event.target.value;
+        this.setState(oldState => {
+            var strings = oldState.strings;
+            if (strings.length >= number) {
+                strings.length = number;
+                return {strings: strings};
+            } else {
+                var full = ["E", "B", "G", "D", "A", "E", "B", "F", "C", "G", "A", "A"];
+                strings.concat(full.slice(strings.length));
+                full.length = number;
+                return {strings: full};
+            }
+        });
+    }
 
+    setFretNumber = (event) => {
+        var number = event.target.value;
+        this.setState({frets: number});
+    }
+
+    setStringTuning = (event) => {
+
+        this.setState(oldState => {
+            return;
+        });
+    }
+
+    render() {
         return (
             <div>
-                {strings.map( (stringNotes) => {
-                return <String notes={stringNotes} highlighted={this.state.highlighted} changeHighlight={this.changeHighlight}/>
-                })}
+                {this.state.frets}
+                <FretboardMenu setStringNumber={this.setStringNumber} setFretNumber={this.setFretNumber}/>
+                <Fretboard {...this.state} changeHighlight={this.changeHighlight}/>
             </div>
-        );
+        )
     }
+
 }
 
-export default Fretboard;
+
+export default FretboardPage;

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Fretboard from './Fretboard.jsx'
+import FretboardPage from './Fretboard.jsx'
 
 ReactDOM.render(
-    <Fretboard />,
+    <FretboardPage />,
     document.getElementById('root')
 );
