@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 
+
 class Tile extends React.Component {
     render() {
         let className = "tile";
@@ -9,14 +10,13 @@ class Tile extends React.Component {
         }
 
         return (
-                <input className={className} type="button" value={this.props.note} onClick={this.props.onClick} />
-
+            <input className={className} type="button" value={this.props.note} onClick={this.props.onClick} />
         );
     }
 }
 
 
-/*gets passed props:
+/* gets passed props:
 notes: eg ["A", "B" ...]
 highlighted: eg ["A#", "B"]
 changeHighlight: eg () => this swappes the higlighted status of the note
