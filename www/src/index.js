@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 
-import App from './App.jsx'
+import Fretboard from './Fretboard.jsx'
 
 ReactDOM.render(
-    <App />,
+    <Fretboard />,
     document.getElementById('root')
 );

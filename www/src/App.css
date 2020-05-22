@@ -1,0 +1,20 @@
+.string {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.tile {
+    flex-basis: 70px;
+    flex-grow: 1;
+    height: 30px;
+    padding: 0;
+    display: inline-block;
+    background-color: white;
+}
+
+.tile-active {
+    color: white;
+    background-color: darkblue;
+}
