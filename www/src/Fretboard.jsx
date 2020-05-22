@@ -81,7 +81,7 @@ class FretboardPage extends React.Component {
         this.state = {strings: ["E", "B", "G", "D", "A", "E"], // String tunings from high e to low E
                       frets: 17,
                       highlighted: ["A", "B", "C", "D", "E", "F", "G"],
-                      key: "C",
+                      musicKey: "G",
                       scale: "Major"};
     }
 
@@ -134,6 +134,16 @@ class FretboardPage extends React.Component {
         });
     }
 
+    // TODO these change the highlighted notes
+    setMusicKey = (event) => {
+        var musicKey = event.target.value;
+        this.setState({musicKey: musicKey});
+    }
+
+    setScale = (event) => {
+        this.setState({scale: event.target.value});
+    }
+
     render() {
         return (
             <div>
@@ -141,6 +151,8 @@ class FretboardPage extends React.Component {
                                setStringNumber={this.setStringNumber}
                                setFretNumber={this.setFretNumber}
                                setStringTuning={this.setStringTuning}
+                               setKey={this.setMusicKey}
+                               setScale={this.setScale}
                 />
                 <Fretboard {...this.state} changeHighlight={this.changeHighlight}/>
             </div>

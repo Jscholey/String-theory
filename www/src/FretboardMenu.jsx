@@ -57,10 +57,10 @@ class TuningsMenu extends React.Component {
                             <option value="F#">F#</option>
                             <option value="G">G</option>
                             <option value="G#">G#</option>
-                            {/*TODO, reverse this list in css with flexbox*/}
                         </select>
                     )
                 })}
+                    {/*TODO, reverse this list in css with flexbox*/}
             </form>
         )
     }
@@ -76,14 +76,48 @@ class StringsMenu extends React.Component {
 
 class KeyMenu extends React.Component {
     render() {
-        return;
+        return (
+            <form>
+                <label>Key</label>
+                <select value={this.props.value} onChange={this.props.onUpdate}>
+                    <option value="A">A</option>
+                    <option value="A#">A#</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="C#">C#</option>
+                    <option value="D">D</option>
+                    <option value="D#">D#</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="F#">F#</option>
+                    <option value="G">G</option>
+                    <option value="G#">G#</option>
+                </select>
+            </form>
+        )
     }
 }
 
 
 class ScaleMenu extends React.Component {
     render() {
-        return;
+        return (
+            <form>
+                <label>Scale</label>
+                <select value={this.props.value} onChange={this.props.onUpdate}>
+                    <option value="ionian">Ionian/Major</option>
+                    <option value="dorian">Dorian</option>
+                    <option value="phrygian">Phrygian</option>
+                    <option value="lydian">Lydian</option>
+                    <option value="mixolydian">Mixolydian</option>
+                    <option value="aeolian">Aeolian/Minor</option>
+                    <option value="locrian">Locrian</option>
+                    <option value="blues">Blues</option>
+                    <option value="majorPent">Major Pentatonic</option>
+                    <option value="minorPent">Minor Pentatonic</option>
+                </select>
+            </form>
+        )
     }
 }
 
@@ -95,6 +129,8 @@ class FretboardMenu extends React.Component {
                 <StringNumber onUpdate={this.props.setStringNumber} number={this.props.strings.length}/>
                 <FretNumber onUpdate={this.props.setFretNumber} number={this.props.frets}/>
                 <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
+                <KeyMenu onUpdate={this.props.setKey} value={this.props.musicKey}/>
+                <ScaleMenu onUpdate={this.props.setScale} value={this.props.scale}/>
             </div>
         )
     }
