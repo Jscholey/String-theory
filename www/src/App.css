@@ -1,5 +1,13 @@
+.string {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 .tile {
-    width: 70px;
+    flex-basis: 70px;
+    flex-grow: 1;
     height: 30px;
     padding: 0;
     display: inline-block;

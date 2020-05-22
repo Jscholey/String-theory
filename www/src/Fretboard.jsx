@@ -9,9 +9,8 @@ class Tile extends React.Component {
         }
 
         return (
-            <form className={className}>
                 <input className={className} type="button" value={this.props.note} onClick={this.props.onClick} />
-            </form>
+
         );
     }
 }
@@ -26,7 +25,7 @@ this includes repeated notes, because the length is controlled from Fretboard.
 class String extends React.Component {
     render() {
         return (
-            <div>
+            <div className="string">
                 {this.props.notes.map((note) => <Tile note={note} highlight={this.props.highlighted.includes(note)} onClick={this.props.changeHighlight(note)}/>)}
             </div>
         )
