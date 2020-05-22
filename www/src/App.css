@@ -1,9 +1,9 @@
 .tile {
-    width: 90px;
-    height: 40px;
+    width: 70px;
+    height: 30px;
     padding: 0;
     display: inline-block;
-    background-color: yellow;
+    background-color: white;
 }
 
 .tile-active {

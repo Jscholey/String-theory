@@ -9,12 +9,30 @@ class Tile extends React.Component {
         }
 
         return (
-            <form>
+            <form className={className}>
                 <input className={className} type="button" value={this.props.note} onClick={this.props.onClick} />
             </form>
         );
     }
 }
+
+
+/*gets passed props:
+notes: eg ["A", "B" ...]
+highlighted: eg ["A#", "B"]
+changeHighlight: eg () => this swappes the higlighted status of the note
+this includes repeated notes, because the length is controlled from Fretboard.
+*/
+class String extends React.Component {
+    render() {
+        return (
+            <div>
+                {this.props.notes.map((note) => <Tile note={note} highlight={this.props.highlighted.includes(note)} onClick={this.props.changeHighlight(note)}/>)}
+            </div>
+        )
+    }
+}
+
 
 class Fretboard extends React.Component {
     #notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
@@ -22,14 +40,23 @@ class Fretboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {strings: ["E", "B", "G", "D", "A", "E"], // String tunings from high e to low E
-                      frets: 15,
+                      frets: 17,
                       highlighted: ["A", "B", "C", "D", "E", "F", "G"]};
     }
 
     /* Return Array */
     orderNotes = (note) => {
         var i = this.#notes.indexOf(note);
-        return this.#notes.slice(i).concat(this.#notes.slice(0,i));
+        var newNotes = this.#notes.slice(i).concat(this.#notes.slice(0,i));
+        if (this.state.frets <= 12) {
+            newNotes = newNotes.slice(0, this.state.frets);
+        } else if (this.state.frets <= 24) {
+            newNotes = newNotes.concat(newNotes.slice(0, this.state.frets - 12));
+        } else {
+            newNotes = newNotes.concat(newNotes);
+            newNotes = newNotes.concat(newNotes.slice(0, this.state.frets - 12));
+        }
+        return newNotes;
     }
 
     /* Get a note, return an anonymous function that changes the state of the note. This function then gets passed to tiles. */
@@ -46,7 +73,6 @@ class Fretboard extends React.Component {
         }
     }
 
-
     render() {
         var strings = [];
         for (var note of this.state.strings) {
@@ -55,18 +81,9 @@ class Fretboard extends React.Component {
 
         return (
             <div>
-                {strings}
-                {this.#notes.map( (note) => <Tile note={note} highlight={this.state.highlighted.includes(note)} onClick={this.changeHighlight(note)}/>)}
-                <Tile note="E" highlight={this.state.highlighted.includes("E")} onClick={this.changeHighlight("E")}/>
-                <Tile note="F" highlight={this.state.highlighted.includes("F")} onClick={this.changeHighlight("F")}/>
-                <Tile note="F#" highlight={this.state.highlighted.includes("F#")} onClick={this.changeHighlight("F#")}/>
-                <Tile note="G" highlight={this.state.highlighted.includes("G")} onClick={this.changeHighlight("G")}/>
-                <Tile note="G#" highlight={this.state.highlighted.includes("G#")} onClick={this.changeHighlight("G#")}/>
-                <Tile note="A" highlight={this.state.highlighted.includes("A")} onClick={this.changeHighlight("A")}/>
-                <Tile note="G" highlight={this.state.highlighted.includes("G")} onClick={this.changeHighlight("G")}/>
-                <Tile note="G#" highlight={this.state.highlighted.includes("G#")} onClick={this.changeHighlight("G#")}/>
-                <Tile note="F" highlight={this.state.highlighted.includes("F")} onClick={this.changeHighlight("F")}/>
-                <p>{this.state.highlighted}</p>
+                {strings.map( (stringNotes) => {
+                return <String notes={stringNotes} highlighted={this.state.highlighted} changeHighlight={this.changeHighlight}/>
+                })}
             </div>
         );
     }
