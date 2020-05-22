@@ -8,6 +8,7 @@ class StringNumber extends React.Component {
             <div>
                 <label>Strings</label>
                 <input
+                    value={this.props.number}
                     type="number"
                     min="1"
                     max="12"
@@ -25,6 +26,7 @@ class FretNumber extends React.Component {
             <div>
                 <label>Frets</label>
                 <input
+                    value={this.props.number}
                     type="number"
                     min="6"
                     max="30"
@@ -38,7 +40,29 @@ class FretNumber extends React.Component {
 
 class TuningsMenu extends React.Component {
     render() {
-        return;
+        return (
+            <form>
+                {this.props.strings.map( (stringNote, index) => {
+                    return (
+                        <select value={stringNote} id={index} onChange={this.props.onUpdate}>
+                            <option value="A">A</option>
+                            <option value="A#">A#</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="C#">C#</option>
+                            <option value="D">D</option>
+                            <option value="D#">D#</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="F#">F#</option>
+                            <option value="G">G</option>
+                            <option value="G#">G#</option>
+                            {/*TODO, reverse this list in css with flexbox*/}
+                        </select>
+                    )
+                })}
+            </form>
+        )
     }
 }
 
@@ -68,8 +92,9 @@ class FretboardMenu extends React.Component {
     render() {
         return (
             <div>
-                <StringNumber onUpdate={this.props.setStringNumber}/>
-                <FretNumber onUpdate={this.props.setFretNumber}/>
+                <StringNumber onUpdate={this.props.setStringNumber} number={this.props.strings.length}/>
+                <FretNumber onUpdate={this.props.setFretNumber} number={this.props.frets}/>
+                <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
             </div>
         )
     }

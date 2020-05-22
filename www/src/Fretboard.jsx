@@ -101,37 +101,47 @@ class FretboardPage extends React.Component {
 
     setStringNumber = (event) => {
         var number = event.target.value;
-        this.setState(oldState => {
-            var strings = oldState.strings;
-            if (strings.length >= number) {
-                strings.length = number;
-                return {strings: strings};
-            } else {
-                var full = ["E", "B", "G", "D", "A", "E", "B", "F", "C", "G", "A", "A"];
-                strings.concat(full.slice(strings.length));
-                full.length = number;
-                return {strings: full};
-            }
-        });
+        if (number>=1 && number<=12) {
+            this.setState(oldState => {
+                var strings = oldState.strings;
+                if (strings.length >= number) {
+                    strings.length = number;
+                    return {strings: strings};
+                } else {
+                    var full = ["E", "B", "G", "D", "A", "E", "B", "F", "C", "G", "A", "A"];
+                    strings = strings.concat(full.slice(strings.length));
+                    strings.length = number;
+                    return {strings: strings};
+                }
+            });
+        }
     }
 
     setFretNumber = (event) => {
         var number = event.target.value;
-        this.setState({frets: number});
+        if (number>=6 && number<=30) {
+            this.setState({frets: number});
+        }
     }
 
     setStringTuning = (event) => {
-
+        var value = event.target.value;
+        var index = event.target.id;
         this.setState(oldState => {
-            return;
+            var tuning = oldState.strings;
+            tuning[index] = value;
+            return {strings: tuning};
         });
     }
 
     render() {
         return (
             <div>
-                {this.state.frets}
-                <FretboardMenu setStringNumber={this.setStringNumber} setFretNumber={this.setFretNumber}/>
+                <FretboardMenu {...this.state}
+                               setStringNumber={this.setStringNumber}
+                               setFretNumber={this.setFretNumber}
+                               setStringTuning={this.setStringTuning}
+                />
                 <Fretboard {...this.state} changeHighlight={this.changeHighlight}/>
             </div>
         )
