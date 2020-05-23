@@ -1,6 +1,19 @@
+:root {
+    --main-bg-colour: #eee;
+}
+
 * {
     box-sizing: border-box;
     font-family: sans-serif;
+    color: #222;
+}
+
+body {
+    background: var(--main-bg-colour);
+}
+
+.fretboard-app {
+    padding: 2vh 2vw;
 }
 
 .fretboard-menu {
@@ -31,14 +44,14 @@ form label {
 form input {
     width: 60px;
     padding: 2px;
-    background-color: white;
-    border: 2px outset darkblue;
+    background-color: var(--main-bg-colour);
+    border: 2px outset #222;
     border-radius: 4px;
 }
 
 form select {
-    background-color: white;
-    border: 2px outset darkblue;
+    background-color: var(--main-bg-colour);
+    border: 2px outset #222;
     border-radius: 4px;
 }
 
@@ -59,7 +72,7 @@ form select {
     flex-basis: 40px;
     flex-grow: 1;
     max-width: 80px;
-    background-color: white;
+    background-color: var(--main-bg-colour);
 }
 
 
@@ -75,12 +88,57 @@ form select {
     height: 30px;
     padding: 0;
     display: inline-block;
-    background-color: white;
+    background-color: var(--main-bg-colour);
+    border-width: 1px;
+    border-style: inset;
 }
 
 .tile-active {
     color: white;
-    background-color: darkblue;
+    border-style: outset;
+}
+
+.tile-root {
+    border-width: 5px;
+    border-style: solid;
+    border-color: white #bbbbbb #bbbbbb white;
+}
+
+.tile-active-A {
+    background-color: #7a0d0d;
+}
+.tile-active-A\# {
+    background-color: #7a440d;
+}
+.tile-active-B {
+    background-color: #7a7a0d;
+}
+.tile-active-C {
+    background-color: #437a0d;
+}
+.tile-active-C\# {
+    background-color: #0d7a0d;
+}
+.tile-active-D {
+    background-color: #0d7a44;
+}
+.tile-active-D\# {
+    background-color: #0d7a7a;
+}
+.tile-active-E {
+    background-color: #0d447a;
+}
+.tile-active-F {
+    background-color: #0d0d7a;
+}
+.tile-active-F\# {
+    background-color: #430d7a;
+}
+.tile-active-G {
+    background-color: #7a0d7a;
+}
+.tile-active-G\# {
+    background-color: #7a0d44;
 }
 
 
