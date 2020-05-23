@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import FretboardMenu from './FretboardMenu.jsx';
 
 
@@ -154,7 +153,7 @@ class FretboardPage extends React.Component {
 
     getScaleNotes = (scale, key) => {
         var indecies = [];
-        var modes = ["ionian", "dorian", "phrygian", "lydian", "mixolodian", "aeolian", "locrian"];
+        var modes = ["ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian"];
         
         if (modes.includes(scale)) {
             let major = [0, 2, 4, 5, 7, 9, 11];
