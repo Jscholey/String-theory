@@ -5,7 +5,7 @@ import './App.css';
 class StringNumber extends React.Component {
     render() {
         return (
-            <div>
+            <form>
                 <label>Strings</label>
                 <input
                     value={this.props.number}
@@ -14,7 +14,7 @@ class StringNumber extends React.Component {
                     max="12"
                     onChange={this.props.onUpdate}
                 />
-            </div>
+            </form>
         )
     }
 }
@@ -23,7 +23,7 @@ class StringNumber extends React.Component {
 class FretNumber extends React.Component {
     render() {
         return (
-            <div>
+            <form>
                 <label>Frets</label>
                 <input
                     value={this.props.number}
@@ -32,7 +32,7 @@ class FretNumber extends React.Component {
                     max="30"
                     onChange={this.props.onUpdate}
                 />
-            </div>
+            </form>
         )
     }
 }
@@ -63,13 +63,6 @@ class TuningsMenu extends React.Component {
                     {/*TODO, reverse this list in css with flexbox*/}
             </form>
         )
-    }
-}
-
-
-class StringsMenu extends React.Component {
-    render() {
-        return;
     }
 }
 
@@ -125,12 +118,14 @@ class ScaleMenu extends React.Component {
 class FretboardMenu extends React.Component {
     render() {
         return (
-            <div>
-                <StringNumber onUpdate={this.props.setStringNumber} number={this.props.strings.length}/>
-                <FretNumber onUpdate={this.props.setFretNumber} number={this.props.frets}/>
-                <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
-                <KeyMenu onUpdate={this.props.setKey} value={this.props.musicKey}/>
-                <ScaleMenu onUpdate={this.props.setScale} value={this.props.scale}/>
+            <div className="fretboard-menu">
+                <div className="string-menu menu-item">
+                    <StringNumber onUpdate={this.props.setStringNumber} number={this.props.strings.length}/>
+                    <FretNumber onUpdate={this.props.setFretNumber} number={this.props.frets}/>
+                    <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
+                </div>
+                <KeyMenu className="menu-item" onUpdate={this.props.setKey} value={this.props.musicKey}/>
+                <ScaleMenu className="menu-item" onUpdate={this.props.setScale} value={this.props.scale}/>
             </div>
         )
     }

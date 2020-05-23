@@ -41,12 +41,10 @@ highlighted:
 changeHighlight:
 */
 class Fretboard extends React.Component {
-    #notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
-
     /* Return Array */
     orderNotes = (note) => {
-        var i = this.#notes.indexOf(note);
-        var newNotes = this.#notes.slice(i).concat(this.#notes.slice(0,i));
+        var i = this.props.notes.indexOf(note);
+        var newNotes = this.props.notes.slice(i).concat(this.props.notes.slice(0,i));
         if (this.props.frets <= 12) {
             newNotes = newNotes.slice(0, this.props.frets);
         } else if (this.props.frets <= 24) {
@@ -76,13 +74,15 @@ class Fretboard extends React.Component {
 
 
 class FretboardPage extends React.Component {
+    #notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
+
     constructor(props) {
         super(props);
         this.state = {strings: ["E", "B", "G", "D", "A", "E"], // String tunings from high e to low E
                       frets: 17,
                       highlighted: ["A", "B", "C", "D", "E", "F", "G"],
-                      musicKey: "G",
-                      scale: "Major"};
+                      musicKey: "C",
+                      scale: "ionian"};
     }
 
     /* Get a note, return an anonymous function that changes the state of the note. This function then gets passed to tiles. */
@@ -134,14 +134,47 @@ class FretboardPage extends React.Component {
         });
     }
 
-    // TODO these change the highlighted notes
+
+    getScaleNotes = (scale, key) => {
+        var indecies = [];
+        var modes = ["ionian", "dorian", "phrygian", "lydian", "mixolodian", "aeolian", "locrian"];
+        
+        if (modes.includes(scale)) {
+            let major = [0, 2, 4, 5, 7, 9, 11];
+            let i = modes.indexOf(scale);
+            indecies = major.slice(i).concat(major.slice(0, i));
+            let x = 12 - indecies[0];
+            indecies = indecies.map((num) => {
+                return (num + x) % 12;
+            })
+        } else if (scale === "majorPent") {
+            indecies = [0, 2, 4, 7, 9];
+        } else if (scale === "minorPent") {
+            indecies = [0, 3, 5, 7, 10];
+        } else if (scale === "blues") {
+            indecies = [0, 3, 5, 6, 7, 10];
+        }
+
+        var i = this.#notes.indexOf(key);
+        var notes = this.#notes.slice(i).concat(this.#notes.slice(0,i));
+
+        var highlighted = indecies.map((num) => {
+            return notes[num];
+        })
+
+        return highlighted;
+    }
+
     setMusicKey = (event) => {
-        var musicKey = event.target.value;
-        this.setState({musicKey: musicKey});
+        var highlighted = this.getScaleNotes(this.state.scale, event.target.value);
+        this.setState({musicKey: event.target.value,
+                       highlighted: highlighted});
     }
 
     setScale = (event) => {
-        this.setState({scale: event.target.value});
+        var highlighted = this.getScaleNotes(event.target.value, this.state.musicKey);
+        this.setState({scale: event.target.value,
+                       highlighted: highlighted});
     }
 
     render() {
@@ -154,7 +187,10 @@ class FretboardPage extends React.Component {
                                setKey={this.setMusicKey}
                                setScale={this.setScale}
                 />
-                <Fretboard {...this.state} changeHighlight={this.changeHighlight}/>
+                <Fretboard {...this.state}
+                           changeHighlight={this.changeHighlight}
+                           notes={this.#notes}
+                />
             </div>
         )
     }
