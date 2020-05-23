@@ -143,7 +143,7 @@ class FretboardPage extends React.Component {
 
     setStringTuning = (event) => {
         var value = event.target.value;
-        var index = event.target.key;
+        var index = event.target.id;
         this.setState(oldState => {
             var tuning = oldState.strings;
             tuning[index] = value;

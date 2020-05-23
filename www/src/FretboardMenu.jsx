@@ -42,9 +42,8 @@ class TuningsMenu extends React.Component {
     render() {
         return (
             <form>
-                {this.props.strings.map( (stringNote, index) => {
-                    return (
-                        <select value={stringNote} key={index} onChange={this.props.onUpdate}>
+                {this.props.strings.map( (stringNote, index) => {                    return (
+                        <select value={stringNote} id={index} key={index} onChange={this.props.onUpdate}>
                             <option value="A">A</option>
                             <option value="A#">A#</option>
                             <option value="B">B</option>
@@ -60,7 +59,6 @@ class TuningsMenu extends React.Component {
                         </select>
                     )
                 })}
-                    {/*TODO, reverse this list in css with flexbox*/}
             </form>
         )
     }
