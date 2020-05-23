@@ -1,5 +1,4 @@
 .string {
-    background-color: black;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -17,4 +16,19 @@
 .tile-active {
     color: white;
     background-color: darkblue;
+}
+
+.frets {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.fret {
+    flex-basis: 70px;
+    flex-grow: 1;
+    padding: 0;
+    display: inline-block;
+    background-color: lightgrey;
+    text-align: center;
 }

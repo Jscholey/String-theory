@@ -44,7 +44,7 @@ class TuningsMenu extends React.Component {
             <form>
                 {this.props.strings.map( (stringNote, index) => {
                     return (
-                        <select value={stringNote} id={index} onChange={this.props.onUpdate}>
+                        <select value={stringNote} key={index} onChange={this.props.onUpdate}>
                             <option value="A">A</option>
                             <option value="A#">A#</option>
                             <option value="B">B</option>
@@ -124,7 +124,7 @@ class FretboardMenu extends React.Component {
                     <FretNumber onUpdate={this.props.setFretNumber} number={this.props.frets}/>
                     <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
                 </div>
-                <KeyMenu className="menu-item" onUpdate={this.props.setKey} value={this.props.musicKey}/>
+                <KeyMenu className="menu-item" onUpdate={this.props.setMusicKey} value={this.props.musicKey}/>
                 <ScaleMenu className="menu-item" onUpdate={this.props.setScale} value={this.props.scale}/>
             </div>
         )

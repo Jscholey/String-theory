@@ -27,7 +27,18 @@ class String extends React.Component {
     render() {
         return (
             <div className="string">
-                {this.props.notes.map((note) => <Tile note={note} highlight={this.props.highlighted.includes(note)} onClick={this.props.changeHighlight(note)}/>)}
+                {this.props.notes.map((note, index) => <Tile note={note} highlight={this.props.highlighted.includes(note)} onClick={this.props.changeHighlight(note)} key={index}/>)}
+            </div>
+        )
+    }
+}
+
+
+class Frets extends React.Component {
+    render() {
+        return (
+            <div className="frets">
+                {[...Array(this.props.frets).keys()].map((val) => <div className="fret" key={val}>{val}</div>)}
             </div>
         )
     }
@@ -43,15 +54,16 @@ changeHighlight:
 class Fretboard extends React.Component {
     /* Return Array */
     orderNotes = (note) => {
+        var frets = this.props.frets + 1;
         var i = this.props.notes.indexOf(note);
         var newNotes = this.props.notes.slice(i).concat(this.props.notes.slice(0,i));
-        if (this.props.frets <= 12) {
-            newNotes = newNotes.slice(0, this.props.frets);
-        } else if (this.props.frets <= 24) {
-            newNotes = newNotes.concat(newNotes.slice(0, this.props.frets - 12));
+        if (frets <= 12) {
+            newNotes = newNotes.slice(0, frets);
+        } else if (frets <= 24) {
+            newNotes = newNotes.concat(newNotes.slice(0, frets - 12));
         } else {
             newNotes = newNotes.concat(newNotes);
-            newNotes = newNotes.concat(newNotes.slice(0, this.props.frets - 12));
+            newNotes = newNotes.concat(newNotes.slice(0, frets - 12));
         }
         return newNotes;
     }
@@ -64,9 +76,14 @@ class Fretboard extends React.Component {
 
         return (
             <div>
-                {strings.map( (stringNotes) => {
-                return <String notes={stringNotes} highlighted={this.props.highlighted} changeHighlight={this.props.changeHighlight}/>
+                {strings.map( (stringNotes, index) => {
+                return (<String notes={stringNotes}
+                               highlighted={this.props.highlighted}
+                               changeHighlight={this.props.changeHighlight}
+                               key={index}
+                        />)
                 })}
+                <Frets frets={this.props.frets + 1}/>
             </div>
         );
     }
@@ -118,7 +135,7 @@ class FretboardPage extends React.Component {
     }
 
     setFretNumber = (event) => {
-        var number = event.target.value;
+        var number = Number(event.target.value);
         if (number>=6 && number<=30) {
             this.setState({frets: number});
         }
@@ -126,7 +143,7 @@ class FretboardPage extends React.Component {
 
     setStringTuning = (event) => {
         var value = event.target.value;
-        var index = event.target.id;
+        var index = event.target.key;
         this.setState(oldState => {
             var tuning = oldState.strings;
             tuning[index] = value;
@@ -184,7 +201,7 @@ class FretboardPage extends React.Component {
                                setStringNumber={this.setStringNumber}
                                setFretNumber={this.setFretNumber}
                                setStringTuning={this.setStringTuning}
-                               setKey={this.setMusicKey}
+                               setMusicKey={this.setMusicKey}
                                setScale={this.setScale}
                 />
                 <Fretboard {...this.state}
