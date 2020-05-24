@@ -85,14 +85,16 @@ form select {
 }
 
 .tile {
-    flex-basis: 70px;
-    flex-grow: 1;
+    flex: 1 0 10px;
     height: 30px;
+    width: 0;
+    font-size: 80%;
     padding: 0;
-    display: inline-block;
+    margin: 0;
     background-color: var(--main-bg-colour);
     border-width: 1px;
     border-style: inset;
+    border-radius: 0;
 }
 
 .tile-active {
