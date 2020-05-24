@@ -124,14 +124,18 @@ class FretboardMenu extends React.Component {
     render() {
         return (
             <div className="fretboard-menu">
-                <div className="menu-item">
-                    <StringNumber onUpdate={this.props.setStringNumber} number={this.props.strings.length}/>
-                    <FretNumber onUpdate={this.props.setFretNumber} number={this.props.frets}/>
-                    <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
+                <div className="menu-section">
+                    <div className="menu-item">
+                        <StringNumber onUpdate={this.props.setStringNumber} number={this.props.strings.length}/>
+                        <FretNumber onUpdate={this.props.setFretNumber} number={this.props.frets}/>
+                    </div>
+                    <div className="menu-item">
+                        <KeyMenu onUpdate={this.props.setMusicKey} value={this.props.musicKey}/>
+                        <ScaleMenu className="menu-item" onUpdate={this.props.setScale} value={this.props.scale}/>
+                    </div>
                 </div>
-                <div className="menu-item">
-                    <KeyMenu onUpdate={this.props.setMusicKey} value={this.props.musicKey}/>
-                    <ScaleMenu className="menu-item" onUpdate={this.props.setScale} value={this.props.scale}/>
+                <div className="menu-section">
+                    <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
                 </div>
             </div>
         )

@@ -16,7 +16,7 @@ body {
     padding: 2vh 2vw;
 }
 
-.fretboard-menu {
+.menu-section {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -39,6 +39,7 @@ form label {
     width: 30%;
     padding: 3px;
     max-width: 200px;
+    flex-grow: 2;
 }
 
 form input {
@@ -64,13 +65,14 @@ form select {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
+    flex-wrap: wrap;
 }
 
 .tunings-selector {
     padding: 2px;
     margin: 2px;
     flex-basis: 40px;
-    flex-grow: 1;
+    flex-grow: 0;
     max-width: 80px;
     background-color: var(--main-bg-colour);
 }
