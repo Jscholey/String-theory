@@ -1,0 +1,162 @@
+:root {
+    --main-bg-colour: #eee;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+    color: #222;
+}
+
+body {
+    background: var(--main-bg-colour);
+}
+
+.fretboard-app {
+    padding: 2vh 2vw;
+}
+
+.menu-section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.menu-item {
+    flex-basis: 1000px;
+    flex-grow: 2;
+    padding: 0;
+}
+
+form {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+form label {
+    width: 30%;
+    padding: 3px;
+    max-width: 200px;
+    flex-grow: 2;
+}
+
+form input {
+    width: 60px;
+    padding: 2px;
+    background-color: var(--main-bg-colour);
+    border: 2px outset #222;
+    border-radius: 4px;
+}
+
+form select {
+    background-color: var(--main-bg-colour);
+    border: 2px outset #222;
+    border-radius: 4px;
+}
+
+.form-tunings {
+    flex-direction: column;
+}
+
+.tunings-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.tunings-selector {
+    padding: 2px;
+    margin: 2px;
+    flex-basis: 40px;
+    flex-grow: 0;
+    max-width: 80px;
+    background-color: var(--main-bg-colour);
+}
+
+
+.string {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.tile {
+    flex: 1 0 10px;
+    height: 30px;
+    width: 0;
+    font-size: 80%;
+    padding: 0;
+    margin: 0;
+    background-color: var(--main-bg-colour);
+    border-width: 1px;
+    border-style: inset;
+    border-radius: 0;
+}
+
+.tile-active {
+    color: white;
+    border-style: outset;
+}
+
+.tile-root {
+    border-width: 5px;
+    border-style: solid;
+    border-color: white #bbbbbb #bbbbbb white;
+}
+
+.tile-active-A {
+    background-color: #7a0d0d;
+}
+.tile-active-A\# {
+    background-color: #7a440d;
+}
+.tile-active-B {
+    background-color: #7a7a0d;
+}
+.tile-active-C {
+    background-color: #437a0d;
+}
+.tile-active-C\# {
+    background-color: #0d7a0d;
+}
+.tile-active-D {
+    background-color: #0d7a44;
+}
+.tile-active-D\# {
+    background-color: #0d7a7a;
+}
+.tile-active-E {
+    background-color: #0d447a;
+}
+.tile-active-F {
+    background-color: #0d0d7a;
+}
+.tile-active-F\# {
+    background-color: #430d7a;
+}
+.tile-active-G {
+    background-color: #7a0d7a;
+}
+.tile-active-G\# {
+    background-color: #7a0d44;
+}
+
+
+.frets {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.fret {
+    flex-basis: 70px;
+    flex-grow: 1;
+    padding: 0;
+    display: inline-block;
+    background-color: lightgrey;
+    text-align: center;
+}

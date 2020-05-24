@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import FretboardMenu from './FretboardMenu.jsx';
 
 
@@ -8,6 +7,10 @@ class Tile extends React.Component {
         let className = "tile";
         if (this.props.highlight) {
             className += " tile-active";
+            className += " tile-active-" + this.props.note;
+            if (this.props.note === this.props.musicKey) {
+                className += " tile-root";
+            }
         }
 
         return (
@@ -27,7 +30,7 @@ class String extends React.Component {
     render() {
         return (
             <div className="string">
-                {this.props.notes.map((note, index) => <Tile note={note} highlight={this.props.highlighted.includes(note)} onClick={this.props.changeHighlight(note)} key={index}/>)}
+                {this.props.notes.map((note, index) => <Tile note={note} highlight={this.props.highlighted.includes(note)} musicKey={this.props.musicKey} onClick={this.props.changeHighlight(note)} key={index}/>)}
             </div>
         )
     }
@@ -78,9 +81,10 @@ class Fretboard extends React.Component {
             <div>
                 {strings.map( (stringNotes, index) => {
                 return (<String notes={stringNotes}
-                               highlighted={this.props.highlighted}
-                               changeHighlight={this.props.changeHighlight}
-                               key={index}
+                                highlighted={this.props.highlighted}
+                                musicKey={this.props.musicKey}
+                                changeHighlight={this.props.changeHighlight}
+                                key={index}
                         />)
                 })}
                 <Frets frets={this.props.frets + 1}/>
@@ -154,7 +158,7 @@ class FretboardPage extends React.Component {
 
     getScaleNotes = (scale, key) => {
         var indecies = [];
-        var modes = ["ionian", "dorian", "phrygian", "lydian", "mixolodian", "aeolian", "locrian"];
+        var modes = ["ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian"];
         
         if (modes.includes(scale)) {
             let major = [0, 2, 4, 5, 7, 9, 11];
@@ -196,7 +200,7 @@ class FretboardPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="fretboard-app">
                 <FretboardMenu {...this.state}
                                setStringNumber={this.setStringNumber}
                                setFretNumber={this.setFretNumber}
