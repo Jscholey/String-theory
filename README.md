@@ -1,4 +1,4 @@
-# String-thoery
+# String-theory
 A website with guitar related applications.
 
 ## Current features
