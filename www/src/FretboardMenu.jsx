@@ -13,6 +13,13 @@ class StringNumber extends React.Component {
                     max="12"
                     onChange={this.props.onUpdate}
                 />
+                <input
+                    value={this.props.number}
+                    type="range"
+                    min="1"
+                    max="12"
+                    onChange={this.props.onUpdate}
+                />
             </form>
         )
     }
@@ -27,6 +34,13 @@ class FretNumber extends React.Component {
                 <input
                     value={this.props.number}
                     type="number"
+                    min="6"
+                    max="30"
+                    onChange={this.props.onUpdate}
+                />
+                <input
+                    value={this.props.number}
+                    type="range"
                     min="6"
                     max="30"
                     onChange={this.props.onUpdate}
