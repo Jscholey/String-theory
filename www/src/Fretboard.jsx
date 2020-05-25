@@ -66,7 +66,7 @@ class Fretboard extends React.Component {
             newNotes = newNotes.concat(newNotes.slice(0, frets - 12));
         } else {
             newNotes = newNotes.concat(newNotes);
-            newNotes = newNotes.concat(newNotes.slice(0, frets - 12));
+            newNotes = newNotes.concat(newNotes.slice(0, frets - 24));
         }
         return newNotes;
     }
