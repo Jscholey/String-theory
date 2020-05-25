@@ -1,18 +1,29 @@
 # String-thoery
-A website for guitar related information including scales
+A website with guitar related applications.
 
-## Specs
+## Current features
 ### Fretboard
-Interactive fretboard with ability to highlight notes. Can choose different scales, arpeggios, string tunings, number of strings and number of frets.
+Interactive fretboard.
+- Click on notes to highlight them.
+- Choose key and different scales.
+- Change string tunings, number of strings and number of frets.
+
+## Possible future features
+### Fretboard
+- Arpeggios.
+- Select instrument tunings, eg, ukulele, bass, guitar standard, guitar drop-D.
 
 ### Metronome
-Can change time signature, tempo, and sound.
+- Change the time signature, tempo, and sound.
 
 ### Intervals trainer
-Learn the fancy names for all the intervals.
+- Learn the fancy names for all the intervals.
 
 ### Online loop pedal
-Records with microphone and loops recording. Can have multiple layers, and can add and remove layers. Works with the metronome.
+- Record with microphone and loop recording.
+- Have multiple layers, and can add and remove layers.
+- Combine with metronome.
 
 ### Circle of fifths
-Moveable circle of fifths.
+- Moveable circle of fifths.
+- Chords in a key.
