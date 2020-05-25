@@ -169,7 +169,7 @@ form select {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
 }
 
 .tunings-selector {
@@ -199,6 +199,7 @@ form select {
     border-width: 1px;
     border-style: inset;
     border-radius: 0;
+    overflow: hidden;
 }
 
 .tile-active {
