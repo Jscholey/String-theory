@@ -172,8 +172,14 @@ class FretboardPage extends React.Component {
             indecies = [0, 2, 4, 7, 9];
         } else if (scale === "minorPent") {
             indecies = [0, 3, 5, 7, 10];
-        } else if (scale === "blues") {
+        } else if (scale === "majorBlues") {
+            indecies = [0, 2, 3, 4, 7, 9];
+        } else if (scale === "minorBlues") {
             indecies = [0, 3, 5, 6, 7, 10];
+        } else if (scale === "harmonicMinor") {
+            indecies = [0, 2, 3, 5, 7, 8, 11];
+        } else if (scale === "melodicMinor") {
+            indecies = [0, 2, 3, 5, 7, 9, 11];
         }
 
         var i = this.#notes.indexOf(key);

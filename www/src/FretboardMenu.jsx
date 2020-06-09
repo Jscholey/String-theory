@@ -124,9 +124,12 @@ class ScaleMenu extends React.Component {
                     <option value="mixolydian">Mixolydian</option>
                     <option value="aeolian">Aeolian/Minor</option>
                     <option value="locrian">Locrian</option>
-                    <option value="blues">Blues</option>
                     <option value="majorPent">Major Pentatonic</option>
                     <option value="minorPent">Minor Pentatonic</option>
+                    <option value="majorBlues">Major Blues</option>
+                    <option value="minorBlues">Minor Blues</option>
+                    <option value="harmonicMinor">Harmonic Minor</option>
+                    <option value="melodicMinor">Melodic Minor</option>
                 </select>
             </form>
         )
