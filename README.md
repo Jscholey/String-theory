@@ -6,11 +6,11 @@ A website with guitar related applications.
 Interactive fretboard.
 - Click on notes to highlight them.
 - Choose key and different scales.
+- Arpeggios.
 - Change string tunings, number of strings and number of frets.
 
 ## Possible future features
 ### Fretboard
-- Arpeggios.
 - Select instrument tunings, eg, ukulele, bass, guitar standard, guitar drop-D.
 
 ### Metronome
