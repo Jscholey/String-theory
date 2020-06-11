@@ -58,7 +58,7 @@ class FormExample extends React.Component {
 }
 
 
-class App extends React.Component {
+class Page1 extends React.Component {
     render() {
         return (
             <div>
@@ -70,4 +70,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default Page1;
