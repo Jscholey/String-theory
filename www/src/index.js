@@ -4,7 +4,9 @@ import ReactDOM from 'react-dom';
 import Container from './Container.jsx';
 
 import './normalise.css';
-import './fretboard.css';
+import './index.css';
+import './fretboard/fretboard.css';
+
 
 ReactDOM.render(
     <Container />,

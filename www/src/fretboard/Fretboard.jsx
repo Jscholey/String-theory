@@ -155,7 +155,6 @@ class FretboardPage extends React.Component {
         });
     }
 
-
     getScaleNotes = (scale, key) => {
         var indecies = [];
         var modes = ["ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian"];

@@ -1,5 +1,6 @@
 import React from 'react';
-import FretboardPage from './Fretboard';
+import FretboardPage from './fretboard/Fretboard.jsx';
+import Nav from './Nav.jsx'
 
 
 class Container extends React.Component {
@@ -28,9 +29,12 @@ class Container extends React.Component {
         return (
             <div>
                 {page}
+                <Nav {...this.state}
+                     changePage={this.changePage}/>
             </div>
         )
     }
 }
+
 
 export default Container;
