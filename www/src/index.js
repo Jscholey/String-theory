@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import FretboardPage from './Fretboard.jsx'
+import Container from './Container.jsx';
 
 import './normalise.css';
 import './fretboard.css';
 
 ReactDOM.render(
-    <FretboardPage />,
+    <Container />,
     document.getElementById('root')
 );
