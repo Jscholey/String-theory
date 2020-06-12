@@ -227,7 +227,7 @@ class FretboardPage extends React.Component {
 
     render() {
         return (
-            <div className="fretboard-app">
+            <>
                 <FretboardMenu {...this.state}
                                setStringNumber={this.setStringNumber}
                                setFretNumber={this.setFretNumber}
@@ -239,7 +239,7 @@ class FretboardPage extends React.Component {
                            changeHighlight={this.changeHighlight}
                            notes={this.#notes}
                 />
-            </div>
+            </>
         )
     }
 

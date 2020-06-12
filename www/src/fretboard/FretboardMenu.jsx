@@ -1,54 +1,5 @@
 import React from 'react';
-
-
-class StringNumber extends React.Component {
-    render() {
-        return (
-            <form className="form-number">
-                <label>Strings</label>
-                <input
-                    value={this.props.number}
-                    type="number"
-                    min="1"
-                    max="12"
-                    onChange={this.props.onUpdate}
-                />
-                <input
-                    value={this.props.number}
-                    type="range"
-                    min="1"
-                    max="12"
-                    onChange={this.props.onUpdate}
-                />
-            </form>
-        )
-    }
-}
-
-
-class FretNumber extends React.Component {
-    render() {
-        return (
-            <form className="form-number">
-                <label>Frets</label>
-                <input
-                    value={this.props.number}
-                    type="number"
-                    min="6"
-                    max="30"
-                    onChange={this.props.onUpdate}
-                />
-                <input
-                    value={this.props.number}
-                    type="range"
-                    min="6"
-                    max="30"
-                    onChange={this.props.onUpdate}
-                />
-            </form>
-        )
-    }
-}
+import Slider from '../resources/Slider.jsx'
 
 
 class TuningsMenu extends React.Component {
@@ -156,8 +107,22 @@ class FretboardMenu extends React.Component {
             <div className="fretboard-menu">
                 <div className="menu-section">
                     <div className="menu-item">
-                        <StringNumber onUpdate={this.props.setStringNumber} number={this.props.strings.length}/>
-                        <FretNumber onUpdate={this.props.setFretNumber} number={this.props.frets}/>
+                        <Slider
+                            number={this.props.strings.length}
+                            min="1"
+                            max="12"
+                            onUpdate={this.props.setStringNumber}
+                        >
+                            Strings
+                        </Slider>
+                        <Slider
+                            number={this.props.frets}
+                            min="6"
+                            max="30"
+                            onUpdate={this.props.setFretNumber}
+                        >
+                            Frets
+                        </Slider>
                     </div>
                     <div className="menu-item">
                         <KeyMenu onUpdate={this.props.setMusicKey} value={this.props.musicKey}/>

@@ -26,6 +26,7 @@ class Nav extends React.Component {
                             value={this.prettyName(page)}
                             className={className}
                             type="button"
+                            key={index}
                             onClick={() => this.props.changePage(page)}
                         />
                     )
