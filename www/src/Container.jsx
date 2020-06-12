@@ -27,11 +27,14 @@ class Container extends React.Component {
         }
 
         return (
-            <div>
-                {page}
+            <>
+                <div className="content">
+                    {page}
+                </div>
                 <Nav {...this.state}
-                     changePage={this.changePage}/>
-            </div>
+                     changePage={this.changePage}
+                />
+            </>
         )
     }
 }

@@ -1,0 +1,66 @@
+:root {
+    --main-bg-colour: #eee;
+    --almost-black: #222;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+    color: var(--almost-black);
+}
+
+body {
+    background: var(--main-bg-colour);
+}
+
+
+/* Set consistent and visible on focus border */
+input:focus,
+select:focus {
+    outline: 1px dashed #6666fa !important;
+}
+
+@-moz-document url-prefix() { 
+    select,
+    input {
+       color: transparent !important;
+       text-shadow: 0 0 0 var(--almost-black) !important;
+    }
+
+    .tile-active {
+        text-shadow: 0 0 0 white !important;
+    }
+
+    .nav-button {
+        text-shadow: 0 0 0 white !important;
+    }
+}
+
+
+/* --- Footer/Nav styles --- */
+.content {
+    min-height: 90vh;
+}
+
+.nav {
+    width: 100%;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.nav-button {
+    flex: 1 0 100px;
+    min-width: 300px; 
+    background-color: #7a7a7a;
+    border-style: outset;
+    border-color: #ddd;
+    border-width: 3px;
+}
+
+.nav-button-active {
+    border-style: inset;
+    background-color: #8f8f8f;
+    border-color: #eee;
+}

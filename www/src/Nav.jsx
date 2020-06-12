@@ -15,11 +15,16 @@ class Nav extends React.Component {
 
     render() {
         return (
-            <div id="nav">
+            <div className="nav">
                 {this.props.pages.map((page, index) => {
+                    var className = "nav-button";
+                    if (page === this.props.currentPage) {
+                        className += " nav-button-active";
+                    }
                     return (
                         <input
                             value={this.prettyName(page)}
+                            className={className}
                             type="button"
                             onClick={() => this.props.changePage(page)}
                         />
