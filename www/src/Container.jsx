@@ -1,13 +1,14 @@
 import React from 'react';
 import FretboardPage from './fretboard/Fretboard.jsx';
-import Nav from './Nav.jsx'
+import Metronome from './metronome/Metronome.jsx';
+import Nav from './Nav.jsx';
 
 
 class Container extends React.Component {
     constructor(props) {
         super(props);
         this.state = {currentPage: "fretboard",
-                      pages: ["fretboard", "metronome"]}
+                      pages: ["fretboard", "metronome", "looper", "circle"]}
     }
 
     changePage = (page) => {
@@ -20,7 +21,10 @@ class Container extends React.Component {
         var page;
         switch (this.state.currentPage) {
             case "fretboard":
-                page = <FretboardPage />
+                page = <FretboardPage />;
+                break;
+            case "metronome":
+                page = <Metronome />;
                 break;
             default:
                 page = <div>No page found</div>

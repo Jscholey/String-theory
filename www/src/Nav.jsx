@@ -7,9 +7,9 @@ class Nav extends React.Component {
             case "fretboard":
                 return "Fretboard";
             case "metronome":
-                return "Super duper metronome";
+                return "Metronome";
             default:
-                return "huh wtf";
+                return "Coming Soon";
         }
     }
 
