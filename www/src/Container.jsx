@@ -26,11 +26,11 @@ class Container extends React.Component {
         }
 
         return (
-            <div>
+            <>
                 {page}
                 <Footer {...this.state}
                         changePage={this.changePage} />
-            </div>
+            </>
         )
     }
 }
