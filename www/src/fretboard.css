@@ -196,6 +196,7 @@ form select {
     padding: 0;
     margin: 0;
     background-color: var(--main-bg-colour);
+    border-color: #eee;
     border-width: 1px;
     border-style: inset;
     border-radius: 0;
@@ -265,4 +266,23 @@ form select {
     text-align: center;
     overflow: hidden;
     position: relative;
+}
+
+
+/* Set consistent and visible on focus border */
+input:focus,
+select:focus {
+    outline: 1px dashed #6666fa !important;
+}
+
+@-moz-document url-prefix() { 
+    select,
+    input {
+       color: transparent !important;
+       text-shadow: 0 0 0 var(--almost-black) !important;
+    }
+
+    .tile-active {
+        text-shadow: 0 0 0 white !important;
+    }
 }

@@ -117,16 +117,32 @@ class ScaleMenu extends React.Component {
             <form>
                 <label>Scale</label>
                 <select value={this.props.value} onChange={this.props.onUpdate}>
-                    <option value="ionian">Ionian/Major</option>
-                    <option value="dorian">Dorian</option>
-                    <option value="phrygian">Phrygian</option>
-                    <option value="lydian">Lydian</option>
-                    <option value="mixolydian">Mixolydian</option>
-                    <option value="aeolian">Aeolian/Minor</option>
-                    <option value="locrian">Locrian</option>
-                    <option value="blues">Blues</option>
                     <option value="majorPent">Major Pentatonic</option>
                     <option value="minorPent">Minor Pentatonic</option>
+                    <option value="majorBlues">Major Blues</option>
+                    <option value="minorBlues">Minor Blues</option>
+                    <option value="harmonicMinor">Harmonic Minor</option>
+                    <option value="melodicMinor">Melodic Minor</option>
+                    <optgroup label="Diatonics">
+                        <option value="ionian">Ionian/Major</option>
+                        <option value="dorian">Dorian</option>
+                        <option value="phrygian">Phrygian</option>
+                        <option value="lydian">Lydian</option>
+                        <option value="mixolydian">Mixolydian</option>
+                        <option value="aeolian">Aeolian/Minor</option>
+                        <option value="locrian">Locrian</option>
+                    </optgroup>
+                    <optgroup label="Arpeggios">
+                        <option value="majArp">Major</option>
+                        <option value="minArp">Minor</option>
+                        <option value="augArp">Augmented</option>
+                        <option value="dimArp">Diminished</option>
+                        <option value="maj7Arp">Major 7th</option>
+                        <option value="dom7Arp">Dominant 7th</option>
+                        <option value="min7Arp">Minor 7th</option>
+                        <option value="halfdim7Arp">Half Diminished 7th</option>
+                        <option value="dim7Arp">Diminished 7th</option>
+                    </optgroup>
                 </select>
             </form>
         )
