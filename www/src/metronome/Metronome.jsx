@@ -1,5 +1,6 @@
 import React from 'react';
-import Slider from '../resources/Slider.jsx'
+import Slider from '../resources/Slider.jsx';
+import {Howl, Howler} from 'howler';
 
 
 class Beats extends React.Component {
@@ -46,11 +47,14 @@ class Metronome extends React.Component {
                       beatsPerBar: 4,
                       clicksPerBeat: 2,
                       beats: [2, 1, 1, 1],
+                      currentBeat: 0,
                       sound: "drum",
                       play: false}
     }
 
     setTempo = (event) => {
+        var sound = new Howl({src: ['/sound/long/metronome-click-1.wav']});
+        sound.play();
         this.setState({tempo: event.target.value});
     }
 
