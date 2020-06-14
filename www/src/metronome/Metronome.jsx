@@ -40,6 +40,22 @@ class Beats extends React.Component {
 }
 
 
+class PlayButton extends React.Component {
+    render() {
+        return (
+            <form className="play-button-container">
+                <input
+                type="button"
+                className={"play-button" + (this.props.play ? " play-button-active" : "")}
+                value={this.props.play ? "⏸" : "⏵" }
+                onClick={this.props.onUpdate}
+                />
+            </form>
+        )
+    }
+}
+
+
 class Metronome extends React.Component {
     constructor(props) {
         super(props);
@@ -49,13 +65,19 @@ class Metronome extends React.Component {
                       beats: [2, 1, 1, 1],
                       currentBeat: 0,
                       sound: "drum",
-                      play: false}
+                      play: false,
+                      timerId: false}
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.timerId);
     }
 
     setTempo = (event) => {
-        var sound = new Howl({src: ['/sound/long/metronome-click-1.wav']});
-        sound.play();
         this.setState({tempo: event.target.value});
+        if (this.state.play) {
+            this.changePlayTempo();
+        }
     }
 
     setBPB = (event) => {
@@ -93,6 +115,73 @@ class Metronome extends React.Component {
         });
     }
 
+    togglePlay = () => {
+        this.setState((oldState) => {
+            if (!oldState.play) {
+                this.startPlay();
+            } else {
+                this.stopPlay();
+            }
+            return {play: !oldState.play}
+        });
+    }
+
+    // A whole bunch of methods for starting and stopping the metronome sound
+    startPlay = () => {
+        clearInterval(this.state.timerId);
+        this.playBeat();
+    }
+
+    stopPlay = () => {
+        clearInterval(this.state.timerId);
+    }
+
+    changePlayTempo = () => {
+        this.startPlay()
+    }
+
+    playBeat = () => {
+        // Set the interval and save id
+        var newId = setInterval(() => {
+            // increment the currentBeat counter
+            this.setState((oldState) => {
+                var newBeat = oldState.currentBeat + 1
+                return {currentBeat: newBeat >= oldState.beatsPerBar ? 0 : newBeat}
+            });
+
+            // play a sound based on current beat type
+            switch (this.state.beats[this.state.currentBeat]) {
+                case 1:
+                    var sound = new Howl({src: ['/sound/short/metronome-click-1.wav']});
+                    sound.play();
+                    break;
+                case 2:
+                    var sound = new Howl({src: ['/sound/short/metronome-tick-1.wav']});
+                    sound.play();
+                    break;
+                default:
+                    break;
+            }
+        }, 60000/this.state.tempo)
+
+        this.setState({timerId: newId});
+
+        // play the first sound before the interval
+        switch (this.state.beats[this.state.currentBeat]) {
+            case 1:
+                var sound = new Howl({src: ['/sound/short/metronome-click-1.wav']});
+                sound.play();
+                break;
+            case 2:
+                var sound = new Howl({src: ['/sound/short/metronome-tick-1.wav']});
+                sound.play();
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Finally the render method
     render() {
         return (
             <div>
@@ -123,6 +212,10 @@ class Metronome extends React.Component {
                 <Beats
                     beats={this.state.beats}
                     onUpdate={this.setBeats}
+                />
+                <PlayButton
+                    play={this.state.play}
+                    onUpdate={this.togglePlay}
                 />
             </div>
         )
