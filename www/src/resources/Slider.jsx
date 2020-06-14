@@ -20,6 +20,7 @@ class Slider extends React.Component {
                     type="number"
                     min={this.props.min}
                     max={this.props.max}
+                    step={this.props.step != null ? this.props.step : 1}
                     onChange={this.props.onUpdate}
                 />
                 <input
@@ -27,6 +28,7 @@ class Slider extends React.Component {
                     type="range"
                     min={this.props.min}
                     max={this.props.max}
+                    step={this.props.step != null ? this.props.step : 1}
                     onChange={this.props.onUpdate}
                 />
             </form>

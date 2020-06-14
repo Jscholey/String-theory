@@ -40,6 +40,36 @@ class Beats extends React.Component {
 }
 
 
+class SoundMenu extends React.Component {
+    render() {
+        return (
+            <form>
+                <label>{this.props.label}</label>
+                <select value={this.props.value} onChange={this.props.onUpdate}>
+                    <option value="metronome-clap-1.wav">metronome 1</option>
+                    <option value="metronome-click-1.wav">metronome 2</option>
+                    <option value="metronome-digital-1.wav">metronome 3</option>
+                    <option value="metronome-tick-1.wav">metronome 4</option>
+                    <option value="metronome-woodblock.wav">metronome 5</option>
+                    <option value="tama-drum-2.wav">metronome 6</option>
+                    <option value="bass-drum-1.wav">bass 1</option>
+                    <option value="bass-drum-2.wav">bass 2</option>
+                    <option value="bass-drum-3.wav">bass 3</option>
+                    <option value="kick-drum-1.wav">drum 1</option>
+                    <option value="kick-drum-2.wav">drum 2</option>
+                    <option value="kick-drum-3.wav">drum 3</option>
+                    <option value="crash-drum-1.wav">drum 4</option>
+                    <option value="tama-drum-1.wav">drum 5</option>
+                    <option value="snare-drum-1.wav">snare</option>
+                    <option value="button.wav">click 1</option>
+                    <option value="click-deep-1.wav">click 2</option>
+                </select>
+            </form>
+        )
+    }
+}
+
+
 class PlayButton extends React.Component {
     render() {
         return (
@@ -59,11 +89,15 @@ class PlayButton extends React.Component {
 class Metronome extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {tempo: 80,
+        this.state = {volume: 1.0,
+                      tempo: 80,
                       beatsPerBar: 4,
                       clicksPerBeat: 2,
                       beats: [2, 1, 1, 1],
                       currentBeat: 0,
+                      srcWeak: "metronome-click-1.wav",
+                      srcStrong: "metronome-tick-1.wav",
+                      srcOff: "tama-drum-2.wav",
                       soundWeak: new Howl({src: ["/sound/short/metronome-click-1.wav"]}),
                       soundStrong: new Howl({src: ["/sound/short/metronome-tick-1.wav"]}),
                       soundOff: new Howl({src: ["/sound/short/tama-drum-2.wav"]}),
@@ -73,6 +107,33 @@ class Metronome extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.state.timerId);
+    }
+
+    setVolume = (event) => {
+        Howler.volume(event.target.value);
+        this.setState({volume: event.target.value});
+    }
+
+    setSound = (beatType) => {
+        switch (beatType) {
+            case "strong":
+                return (event) => {
+                    this.setState({soundStrong: new Howl({src: ["/sound/short/" + event.target.value]}),
+                                   srcStrong: event.target.value});
+                }
+            case "weak":
+                return (event) => {
+                    this.setState({soundWeak: new Howl({src: ["/sound/short/" + event.target.value]}),
+                                   srcWeak: event.target.value});
+                }
+            case "off":
+                return (event) => {
+                    this.setState({soundOff: new Howl({src: ["/sound/short/" + event.target.value]}),
+                                   srcOff: event.target.value});
+                }
+            default:
+                break;
+        }
     }
 
     setTempo = (event) => {
@@ -184,6 +245,15 @@ class Metronome extends React.Component {
         return (
             <div>
                 <Slider
+                    number={this.state.volume}
+                    min="0.0"
+                    max="1.0"
+                    step="0.01"
+                    onUpdate={this.setVolume}
+                >
+                    Volume
+                </Slider>
+                <Slider
                     number={this.state.tempo}
                     min="20"
                     max="280"
@@ -210,6 +280,21 @@ class Metronome extends React.Component {
                 <Beats
                     beats={this.state.beats}
                     onUpdate={this.setBeats}
+                />
+                <SoundMenu
+                    label={"Strong beats"}
+                    value={this.state.srcStrong}
+                    onUpdate={this.setSound("strong")}
+                />
+                <SoundMenu
+                    label={"Weak beats"}
+                    value={this.state.srcWeak}
+                    onUpdate={this.setSound("weak")}
+                />
+                <SoundMenu
+                    label={"Off beats"}
+                    value={this.state.srcOff}
+                    onUpdate={this.setSound("off")}
                 />
                 <PlayButton
                     play={this.state.play}
