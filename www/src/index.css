@@ -178,7 +178,7 @@ form label {
 form input[type="number"] {
     flex-basis: 300px;
     flex-grow: 2;
-    max-width: 40px;
+    max-width: 45px;
     padding: 2px;
     background-color: var(--main-bg-colour);
     border: 2px outset var(--almost-black);

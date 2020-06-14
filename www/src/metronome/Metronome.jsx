@@ -46,23 +46,23 @@ class SoundMenu extends React.Component {
             <form>
                 <label>{this.props.label}</label>
                 <select value={this.props.value} onChange={this.props.onUpdate}>
-                    <option value="metronome-clap-1.wav">metronome 1</option>
-                    <option value="metronome-click-1.wav">metronome 2</option>
-                    <option value="metronome-digital-1.wav">metronome 3</option>
-                    <option value="metronome-tick-1.wav">metronome 4</option>
-                    <option value="metronome-woodblock.wav">metronome 5</option>
-                    <option value="tama-drum-2.wav">metronome 6</option>
-                    <option value="bass-drum-1.wav">bass 1</option>
-                    <option value="bass-drum-2.wav">bass 2</option>
-                    <option value="bass-drum-3.wav">bass 3</option>
-                    <option value="kick-drum-1.wav">drum 1</option>
-                    <option value="kick-drum-2.wav">drum 2</option>
-                    <option value="kick-drum-3.wav">drum 3</option>
-                    <option value="crash-drum-1.wav">drum 4</option>
-                    <option value="tama-drum-1.wav">drum 5</option>
-                    <option value="snare-drum-1.wav">snare</option>
-                    <option value="button.wav">click 1</option>
-                    <option value="click-deep-1.wav">click 2</option>
+                    <option value="metronome-clap-1.wav">Metronome 1</option>
+                    <option value="metronome-click-1.wav">Metronome 2</option>
+                    <option value="metronome-digital-1.wav">Metronome 3</option>
+                    <option value="metronome-tick-1.wav">Metronome 4</option>
+                    <option value="metronome-woodblock.wav">Metronome 5</option>
+                    <option value="tama-drum-2.wav">Metronome 6</option>
+                    <option value="bass-drum-1.wav">Bass 1</option>
+                    <option value="bass-drum-2.wav">Bass 2</option>
+                    <option value="bass-drum-3.wav">Bass 3</option>
+                    <option value="kick-drum-1.wav">Drum 1</option>
+                    <option value="kick-drum-2.wav">Drum 2</option>
+                    <option value="kick-drum-3.wav">Drum 3</option>
+                    <option value="crash-drum-1.wav">Drum 4</option>
+                    <option value="tama-drum-1.wav">Drum 5</option>
+                    <option value="snare-drum-1.wav">Snare</option>
+                    <option value="button.wav">Click 1</option>
+                    <option value="click-deep-1.wav">Click 2</option>
                 </select>
             </form>
         )
@@ -97,10 +97,10 @@ class Metronome extends React.Component {
                       currentBeat: 0,
                       srcWeak: "metronome-click-1.wav",
                       srcStrong: "metronome-tick-1.wav",
-                      srcOff: "tama-drum-2.wav",
+                      srcOff: "metronome-clap-1.wav",
                       soundWeak: new Howl({src: ["/sound/short/metronome-click-1.wav"]}),
                       soundStrong: new Howl({src: ["/sound/short/metronome-tick-1.wav"]}),
-                      soundOff: new Howl({src: ["/sound/short/tama-drum-2.wav"]}),
+                      soundOff: new Howl({src: ["/sound/short/metronome-clap-1.wav"]}),
                       play: false,
                       timerId: false}
     }
