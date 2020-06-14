@@ -64,7 +64,9 @@ class Metronome extends React.Component {
                       clicksPerBeat: 2,
                       beats: [2, 1, 1, 1],
                       currentBeat: 0,
-                      sound: "drum",
+                      soundWeak: new Howl({src: ["/sound/short/metronome-click-1.wav"]}),
+                      soundStrong: new Howl({src: ["/sound/short/metronome-tick-1.wav"]}),
+                      soundOff: new Howl({src: ["/sound/short/tama-drum-2.wav"]}),
                       play: false,
                       timerId: false}
     }
@@ -152,12 +154,10 @@ class Metronome extends React.Component {
             // play a sound based on current beat type
             switch (this.state.beats[this.state.currentBeat]) {
                 case 1:
-                    var sound = new Howl({src: ['/sound/short/metronome-click-1.wav']});
-                    sound.play();
+                    this.state.soundWeak.play();
                     break;
                 case 2:
-                    var sound = new Howl({src: ['/sound/short/metronome-tick-1.wav']});
-                    sound.play();
+                    this.state.soundStrong.play();
                     break;
                 default:
                     break;
@@ -168,16 +168,14 @@ class Metronome extends React.Component {
 
         // play the first sound before the interval
         switch (this.state.beats[this.state.currentBeat]) {
-            case 1:
-                var sound = new Howl({src: ['/sound/short/metronome-click-1.wav']});
-                sound.play();
-                break;
-            case 2:
-                var sound = new Howl({src: ['/sound/short/metronome-tick-1.wav']});
-                sound.play();
-                break;
-            default:
-                break;
+                case 1:
+                    this.state.soundWeak.play();
+                    break;
+                case 2:
+                    this.state.soundStrong.play();
+                    break;
+                default:
+                    break;
         }
     }
 
