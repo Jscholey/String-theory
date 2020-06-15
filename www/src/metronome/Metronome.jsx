@@ -1,6 +1,6 @@
-import React from 'react';
-import Slider from '../resources/Slider.jsx';
-import {Howl, Howler} from 'howler';
+import React from "react";
+import Slider from "../resources/Slider.jsx";
+import {Howl, Howler} from "howler";
 
 
 class Beats extends React.Component {
@@ -12,30 +12,30 @@ class Beats extends React.Component {
                     {this.props.beats.map( (beatType, index) => {
                         var name = "beat";
                         switch (beatType) {
-                            case 0:
-                                name += " beat-mute";
-                                break;
-                            case 1:
-                                name += " beat-weak";
-                                break;
-                            case 2:
-                                name += " beat-strong";
-                                break;
-                            default:
-                                break;
+                        case 0:
+                            name += " beat-mute";
+                            break;
+                        case 1:
+                            name += " beat-weak";
+                            break;
+                        case 2:
+                            name += " beat-strong";
+                            break;
+                        default:
+                            break;
                         }
                         return (
                             <input
                                 type="button"
                                 className={name}
                                 key={index}
-                                onClick={() => {this.props.onUpdate(index)}}
+                                onClick={() => {this.props.onUpdate(index);}}
                             />
-                        )
+                        );
                     })}
                 </div>
             </form>
-        )
+        );
     }
 }
 
@@ -65,7 +65,7 @@ class SoundMenu extends React.Component {
                     <option value="click-deep-1.wav">Click 2</option>
                 </select>
             </form>
-        )
+        );
     }
 }
 
@@ -75,13 +75,13 @@ class PlayButton extends React.Component {
         return (
             <form className="play-button-container">
                 <input
-                type="button"
-                className={"play-button" + (this.props.play ? " play-button-active" : "")}
-                value={this.props.play ? "⏸" : "⏵" }
-                onClick={this.props.onUpdate}
+                    type="button"
+                    className={"play-button" + (this.props.play ? " play-button-active" : "")}
+                    value={this.props.play ? "⏸" : "⏵" }
+                    onClick={this.props.onUpdate}
                 />
             </form>
-        )
+        );
     }
 }
 
@@ -89,20 +89,22 @@ class PlayButton extends React.Component {
 class Metronome extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {volume: 1.0,
-                      tempo: 80,
-                      beatsPerBar: 4,
-                      clicksPerBeat: 2,
-                      beats: [2, 1, 1, 1],
-                      currentBeat: 0,
-                      srcWeak: "metronome-click-1.wav",
-                      srcStrong: "metronome-tick-1.wav",
-                      srcOff: "metronome-clap-1.wav",
-                      soundWeak: new Howl({src: ["/sound/short/metronome-click-1.wav"]}),
-                      soundStrong: new Howl({src: ["/sound/short/metronome-tick-1.wav"]}),
-                      soundOff: new Howl({src: ["/sound/short/metronome-clap-1.wav"]}),
-                      play: false,
-                      timerId: false}
+        this.state = {
+            volume: 1.0,
+            tempo: 80,
+            beatsPerBar: 4,
+            clicksPerBeat: 2,
+            beats: [2, 1, 1, 1],
+            currentBeat: 0,
+            srcWeak: "metronome-click-1.wav",
+            srcStrong: "metronome-tick-1.wav",
+            srcOff: "metronome-clap-1.wav",
+            soundWeak: new Howl({src: ["/sound/short/metronome-click-1.wav"]}),
+            soundStrong: new Howl({src: ["/sound/short/metronome-tick-1.wav"]}),
+            soundOff: new Howl({src: ["/sound/short/metronome-clap-1.wav"]}),
+            play: false,
+            timerId: false
+        };
     }
 
     componentWillUnmount() {
@@ -116,23 +118,29 @@ class Metronome extends React.Component {
 
     setSound = (beatType) => {
         switch (beatType) {
-            case "strong":
-                return (event) => {
-                    this.setState({soundStrong: new Howl({src: ["/sound/short/" + event.target.value]}),
-                                   srcStrong: event.target.value});
-                }
-            case "weak":
-                return (event) => {
-                    this.setState({soundWeak: new Howl({src: ["/sound/short/" + event.target.value]}),
-                                   srcWeak: event.target.value});
-                }
-            case "off":
-                return (event) => {
-                    this.setState({soundOff: new Howl({src: ["/sound/short/" + event.target.value]}),
-                                   srcOff: event.target.value});
-                }
-            default:
-                break;
+        case "strong":
+            return (event) => {
+                this.setState({
+                    soundStrong: new Howl({src: ["/sound/short/" + event.target.value]}),
+                    srcStrong: event.target.value
+                });
+            };
+        case "weak":
+            return (event) => {
+                this.setState({
+                    soundWeak: new Howl({src: ["/sound/short/" + event.target.value]}),
+                    srcWeak: event.target.value
+                });
+            };
+        case "off":
+            return (event) => {
+                this.setState({
+                    soundOff: new Howl({src: ["/sound/short/" + event.target.value]}),
+                    srcOff: event.target.value
+                });
+            };
+        default:
+            break;
         }
     }
 
@@ -149,15 +157,17 @@ class Metronome extends React.Component {
             this.setState((oldState) => {
                 var beats = oldState.beats;
                 var len = number;
-                var out = []
+                var out = [];
                 if (len > beats.length) {
                     out = beats.concat(Array(len-beats.length).fill(1));
                 } else {
                     beats.length = len;
                     out = beats;
                 }
-                return {beatsPerBar: len,
-                        beats: out}
+                return {
+                    beatsPerBar: len,
+                    beats: out
+                };
             });
         }
     }
@@ -185,7 +195,7 @@ class Metronome extends React.Component {
             } else {
                 this.stopPlay();
             }
-            return {play: !oldState.play}
+            return {play: !oldState.play};
         });
     }
 
@@ -200,7 +210,7 @@ class Metronome extends React.Component {
     }
 
     changePlayTempo = () => {
-        this.startPlay()
+        this.startPlay();
     }
 
     playBeat = () => {
@@ -208,35 +218,35 @@ class Metronome extends React.Component {
         var newId = setInterval(() => {
             // increment the currentBeat counter
             this.setState((oldState) => {
-                var newBeat = oldState.currentBeat + 1
-                return {currentBeat: newBeat >= oldState.beatsPerBar ? 0 : newBeat}
+                var newBeat = oldState.currentBeat + 1;
+                return {currentBeat: newBeat >= oldState.beatsPerBar ? 0 : newBeat};
             });
 
             // play a sound based on current beat type
             switch (this.state.beats[this.state.currentBeat]) {
-                case 1:
-                    this.state.soundWeak.play();
-                    break;
-                case 2:
-                    this.state.soundStrong.play();
-                    break;
-                default:
-                    break;
+            case 1:
+                this.state.soundWeak.play();
+                break;
+            case 2:
+                this.state.soundStrong.play();
+                break;
+            default:
+                break;
             }
-        }, 60000/this.state.tempo)
+        }, 60000/this.state.tempo);
 
         this.setState({timerId: newId});
 
         // play the first sound before the interval
         switch (this.state.beats[this.state.currentBeat]) {
-                case 1:
-                    this.state.soundWeak.play();
-                    break;
-                case 2:
-                    this.state.soundStrong.play();
-                    break;
-                default:
-                    break;
+        case 1:
+            this.state.soundWeak.play();
+            break;
+        case 2:
+            this.state.soundStrong.play();
+            break;
+        default:
+            break;
         }
     }
 
@@ -301,7 +311,7 @@ class Metronome extends React.Component {
                     onUpdate={this.togglePlay}
                 />
             </div>
-        )
+        );
     }
 }
 

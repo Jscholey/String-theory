@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 
 /* 
@@ -32,7 +32,7 @@ class Slider extends React.Component {
                     onChange={this.props.onUpdate}
                 />
             </form>
-        )
+        );
     }
 }
 

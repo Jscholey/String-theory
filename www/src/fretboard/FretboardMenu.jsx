@@ -1,5 +1,5 @@
-import React from 'react';
-import Slider from '../resources/Slider.jsx'
+import React from "react";
+import Slider from "../resources/Slider.jsx";
 
 
 class TuningsMenu extends React.Component {
@@ -8,31 +8,33 @@ class TuningsMenu extends React.Component {
             <form className="form-tunings">
                 <label>Tuning</label>
                 <div className="tunings-menu">
-                {this.props.strings.map( (stringNote, index) => {                    return (
-                        <select className="tunings-selector"
+                    {this.props.strings.map( (stringNote, index) => {
+                        return (
+                            <select
+                                className="tunings-selector"
                                 value={stringNote}
                                 id={index}
                                 key={index}
                                 onChange={this.props.onUpdate}
-                        >
-                            <option value="A">A</option>
-                            <option value="A#">A#</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="C#">C#</option>
-                            <option value="D">D</option>
-                            <option value="D#">D#</option>
-                            <option value="E">E</option>
-                            <option value="F">F</option>
-                            <option value="F#">F#</option>
-                            <option value="G">G</option>
-                            <option value="G#">G#</option>
-                        </select>
-                    )
-                })}
+                            >
+                                <option value="A">A</option>
+                                <option value="A#">A#</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="C#">C#</option>
+                                <option value="D">D</option>
+                                <option value="D#">D#</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="F#">F#</option>
+                                <option value="G">G</option>
+                                <option value="G#">G#</option>
+                            </select>
+                        );
+                    })}
                 </div>
             </form>
-        )
+        );
     }
 }
 
@@ -57,7 +59,7 @@ class KeyMenu extends React.Component {
                     <option value="G#">G#</option>
                 </select>
             </form>
-        )
+        );
     }
 }
 
@@ -96,7 +98,7 @@ class ScaleMenu extends React.Component {
                     </optgroup>
                 </select>
             </form>
-        )
+        );
     }
 }
 
@@ -133,7 +135,7 @@ class FretboardMenu extends React.Component {
                     <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
                 </div>
             </div>
-        )
+        );
     }
 }
 

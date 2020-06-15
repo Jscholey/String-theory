@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
 
 class Nav extends React.Component {
     prettyName = (page) => {
         switch(page) {
-            case "fretboard":
-                return "Fretboard";
-            case "metronome":
-                return "Metronome";
-            default:
-                return "Coming Soon";
+        case "fretboard":
+            return "Fretboard";
+        case "metronome":
+            return "Metronome";
+        default:
+            return "Coming Soon";
         }
     }
 
@@ -29,10 +29,10 @@ class Nav extends React.Component {
                             key={index}
                             onClick={() => this.props.changePage(page)}
                         />
-                    )
+                    );
                 })}
             </div>
-        )
+        );
     }
 }
 

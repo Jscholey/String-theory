@@ -1,5 +1,5 @@
-import React from 'react';
-import FretboardMenu from './FretboardMenu.jsx';
+import React from "react";
+import FretboardMenu from "./FretboardMenu.jsx";
 
 
 class Tile extends React.Component {
@@ -32,7 +32,7 @@ class String extends React.Component {
             <div className="string">
                 {this.props.notes.map((note, index) => <Tile note={note} highlight={this.props.highlighted.includes(note)} musicKey={this.props.musicKey} onClick={this.props.changeHighlight(note)} key={index}/>)}
             </div>
-        )
+        );
     }
 }
 
@@ -43,7 +43,7 @@ class Frets extends React.Component {
             <div className="frets">
                 {[...Array(this.props.frets).keys()].map((val) => <div className="fret" key={val}>{val}</div>)}
             </div>
-        )
+        );
     }
 }
 
@@ -80,12 +80,15 @@ class Fretboard extends React.Component {
         return (
             <div>
                 {strings.map( (stringNotes, index) => {
-                return (<String notes={stringNotes}
-                                highlighted={this.props.highlighted}
-                                musicKey={this.props.musicKey}
-                                changeHighlight={this.props.changeHighlight}
-                                key={index}
-                        />)
+                    return (
+                        <String
+                            notes={stringNotes}
+                            highlighted={this.props.highlighted}
+                            musicKey={this.props.musicKey}
+                            changeHighlight={this.props.changeHighlight}
+                            key={index}
+                        />
+                    );
                 })}
                 <Frets frets={this.props.frets + 1}/>
             </div>
@@ -99,16 +102,18 @@ class FretboardPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {strings: ["E", "B", "G", "D", "A", "E"], // String tunings from high e to low E
-                      frets: 17,
-                      musicKey: "C",
-                      scale: "majorPent",
-                      highlighted: ["A", "C", "D", "E", "G"]};
+        this.state = {
+            strings: ["E", "B", "G", "D", "A", "E"], // String tunings from high e to low E
+            frets: 17,
+            musicKey: "C",
+            scale: "majorPent",
+            highlighted: ["A", "C", "D", "E", "G"]
+        };
     }
 
     /* Get a note, return an anonymous function that changes the state of the note. This function then gets passed to tiles. */
     changeHighlight = (note) => {
-        return (event) => {
+        return () => {
             this.setState(oldState => {
                 if (oldState.highlighted.includes(note)) {
                     oldState.highlighted.splice(oldState.highlighted.indexOf(note), 1);
@@ -117,7 +122,7 @@ class FretboardPage extends React.Component {
                     return {highlighted: oldState.highlighted.concat([note])};
                 }
             });
-        }
+        };
     }
 
     setStringNumber = (event) => {
@@ -167,7 +172,7 @@ class FretboardPage extends React.Component {
             let x = 12 - indecies[0];
             indecies = indecies.map((num) => {
                 return (num + x) % 12;
-            })
+            });
         } // --- Other scales ---
         else if (scale === "majorPent") {
             indecies = [0, 2, 4, 7, 9];
@@ -208,39 +213,45 @@ class FretboardPage extends React.Component {
 
         var highlighted = indecies.map((num) => {
             return notes[num];
-        })
+        });
 
         return highlighted;
     }
 
     setMusicKey = (event) => {
         var highlighted = this.getScaleNotes(this.state.scale, event.target.value);
-        this.setState({musicKey: event.target.value,
-                       highlighted: highlighted});
+        this.setState({
+            musicKey: event.target.value,
+            highlighted: highlighted
+        });
     }
 
     setScale = (event) => {
         var highlighted = this.getScaleNotes(event.target.value, this.state.musicKey);
-        this.setState({scale: event.target.value,
-                       highlighted: highlighted});
+        this.setState({
+            scale: event.target.value,
+            highlighted: highlighted
+        });
     }
 
     render() {
         return (
             <>
-                <FretboardMenu {...this.state}
-                               setStringNumber={this.setStringNumber}
-                               setFretNumber={this.setFretNumber}
-                               setStringTuning={this.setStringTuning}
-                               setMusicKey={this.setMusicKey}
-                               setScale={this.setScale}
+                <FretboardMenu
+                    {...this.state}
+                    setStringNumber={this.setStringNumber}
+                    setFretNumber={this.setFretNumber}
+                    setStringTuning={this.setStringTuning}
+                    setMusicKey={this.setMusicKey}
+                    setScale={this.setScale}
                 />
-                <Fretboard {...this.state}
-                           changeHighlight={this.changeHighlight}
-                           notes={this.#notes}
+                <Fretboard
+                    {...this.state}
+                    changeHighlight={this.changeHighlight}
+                    notes={this.#notes}
                 />
             </>
-        )
+        );
     }
 
 }
