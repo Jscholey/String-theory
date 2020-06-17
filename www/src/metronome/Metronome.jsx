@@ -103,12 +103,14 @@ class Metronome extends React.Component {
             soundStrong: new Howl({src: ["/sound/short/metronome-tick-1.wav"]}),
             soundOff: new Howl({src: ["/sound/short/metronome-clap-1.wav"]}),
             play: false,
-            timerId: false
+            timerId: false,
+            offBeatId: false
         };
     }
 
     componentWillUnmount() {
         clearInterval(this.state.timerId);
+        clearInterval(this.state.offBeatId);
     }
 
     setVolume = (event) => {
@@ -147,7 +149,7 @@ class Metronome extends React.Component {
     setTempo = (event) => {
         this.setState({tempo: event.target.value});
         if (this.state.play) {
-            this.changePlayTempo();
+            this.changePlayTempo(event.target.value);
         }
     }
 
@@ -201,19 +203,19 @@ class Metronome extends React.Component {
 
     // A whole bunch of methods for starting and stopping the metronome sound
     startPlay = () => {
-        clearInterval(this.state.timerId);
-        this.playBeat();
+        this.playBeat(this.state.tempo);
     }
 
     stopPlay = () => {
         clearInterval(this.state.timerId);
+        clearInterval(this.state.offBeatId);
     }
 
-    changePlayTempo = () => {
-        this.startPlay();
+    changePlayTempo = (tempo) => {
+        this.playBeat(tempo);
     }
 
-    playBeat = () => {
+    playBeat = (tempo) => {
         // Set the interval and save id
         var newId = setInterval(() => {
             // increment the currentBeat counter
@@ -226,27 +228,51 @@ class Metronome extends React.Component {
             switch (this.state.beats[this.state.currentBeat]) {
             case 1:
                 this.state.soundWeak.play();
+                this.playOffBeats(tempo, this.state.clicksPerBeat);
                 break;
             case 2:
                 this.state.soundStrong.play();
+                this.playOffBeats(tempo, this.state.clicksPerBeat);
                 break;
             default:
                 break;
             }
-        }, 60000/this.state.tempo);
+        }, 60000/tempo);
 
-        this.setState({timerId: newId});
+        // clear the old interval id and save the new id in state
+        this.setState((oldState) => {
+            clearInterval(oldState.timerId);
+            clearInterval(oldState.offBeatId);
+            return {timerId: newId};
+        });
 
         // play the first sound before the interval
         switch (this.state.beats[this.state.currentBeat]) {
         case 1:
             this.state.soundWeak.play();
+            this.playOffBeats(tempo, this.state.clicksPerBeat);
             break;
         case 2:
             this.state.soundStrong.play();
+            this.playOffBeats(tempo, this.state.clicksPerBeat);
             break;
         default:
             break;
+        }
+    }
+
+    playOffBeats = (tempo, CPB) => {
+        if (CPB > 1) {
+            var clicks = 0;
+            this.setState((oldState) => {
+                var newId = setInterval(() => {
+                    oldState.soundOff.play();
+                    if (++clicks >= CPB-1) {
+                        clearInterval(newId);
+                    }
+                }, 60000/(tempo*CPB));
+                return {offBeatId: newId};
+            });
         }
     }
 
