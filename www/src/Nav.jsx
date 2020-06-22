@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 
@@ -35,6 +36,12 @@ class Nav extends React.Component {
         );
     }
 }
+
+Nav.propTypes = {
+    pages: PropTypes.arrayOf(PropTypes.string).isRequired,
+    currentPage: PropTypes.string.isRequired,
+    changePage: PropTypes.func.isRequired
+};
 
 
 export default Nav;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import Slider from "../resources/Slider.jsx";
 import {Howl, Howler} from "howler";
@@ -39,6 +40,11 @@ class Beats extends React.Component {
     }
 }
 
+Beats.propTypes = {
+    beats: PropTypes.arrayOf(PropTypes.number).isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
+
 
 class SoundMenu extends React.Component {
     render() {
@@ -69,6 +75,12 @@ class SoundMenu extends React.Component {
     }
 }
 
+SoundMenu.propTypes = {
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
+
 
 class PlayButton extends React.Component {
     render() {
@@ -84,6 +96,11 @@ class PlayButton extends React.Component {
         );
     }
 }
+
+PlayButton.propTypes = {
+    play: PropTypes.bool.isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
 
 
 class Metronome extends React.Component {
@@ -282,33 +299,33 @@ class Metronome extends React.Component {
             <div>
                 <Slider
                     number={this.state.volume}
-                    min="0.0"
-                    max="1.0"
-                    step="0.01"
+                    min={0.0}
+                    max={1.0}
+                    step={0.01}
                     onUpdate={this.setVolume}
                 >
                     Volume
                 </Slider>
                 <Slider
                     number={this.state.tempo}
-                    min="20"
-                    max="280"
+                    min={20}
+                    max={280}
                     onUpdate={this.setTempo}
                 >
                     Tempo
                 </Slider>
                 <Slider
                     number={this.state.beatsPerBar}
-                    min="1"
-                    max="20"
+                    min={1}
+                    max={20}
                     onUpdate={this.setBPB}
                 >
                     Beats per bar
                 </Slider>
                 <Slider
                     number={this.state.clicksPerBeat}
-                    min="1"
-                    max="8"
+                    min={1}
+                    max={8}
                     onUpdate={this.setCPB}
                 >
                     Clicks per beat

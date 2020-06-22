@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import FretboardMenu from "./FretboardMenu.jsx";
 
@@ -19,14 +20,15 @@ class Tile extends React.Component {
     }
 }
 
+Tile.propTypes = {
+    highlight: PropTypes.bool.isRequired,
+    note: PropTypes.string.isRequired,
+    musicKey: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
+};
 
-/* Gets passed props:
-notes: eg ["A", "B" ...]
-highlighted: eg ["A#", "B"]
-changeHighlight: eg () => this swappes the higlighted status of the note
-this includes repeated notes, because the length is controlled from Fretboard.
-*/
-class String extends React.Component {
+
+class NoteString extends React.Component {
     render() {
         return (
             <div className="string">
@@ -35,6 +37,13 @@ class String extends React.Component {
         );
     }
 }
+
+NoteString.propTypes = {
+    notes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    highlighted: PropTypes.arrayOf(PropTypes.string).isRequired,
+    changeHighlight: PropTypes.func.isRequired,
+    musicKey: PropTypes.string.isRequired
+};
 
 
 class Frets extends React.Component {
@@ -47,13 +56,11 @@ class Frets extends React.Component {
     }
 }
 
+Frets.propTypes = {
+    frets: PropTypes.number.isRequired
+};
 
-/* Gets passed props:
-strings:
-frets:
-highlighted:
-changeHighlight:
-*/
+
 class Fretboard extends React.Component {
     /* Return Array */
     orderNotes = (note) => {
@@ -81,7 +88,7 @@ class Fretboard extends React.Component {
             <div>
                 {strings.map( (stringNotes, index) => {
                     return (
-                        <String
+                        <NoteString
                             notes={stringNotes}
                             highlighted={this.props.highlighted}
                             musicKey={this.props.musicKey}
@@ -95,6 +102,15 @@ class Fretboard extends React.Component {
         );
     }
 }
+
+Fretboard.propTypes = {
+    frets: PropTypes.number.isRequired,
+    notes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    strings: PropTypes.arrayOf(PropTypes.string).isRequired,
+    highlighted: PropTypes.arrayOf(PropTypes.string).isRequired,
+    musicKey: PropTypes.string.isRequired,
+    changeHighlight: PropTypes.func.isRequired
+};
 
 
 class FretboardPage extends React.Component {
@@ -236,7 +252,7 @@ class FretboardPage extends React.Component {
 
     render() {
         return (
-            <>
+            <div>
                 <FretboardMenu
                     {...this.state}
                     setStringNumber={this.setStringNumber}
@@ -250,7 +266,7 @@ class FretboardPage extends React.Component {
                     changeHighlight={this.changeHighlight}
                     notes={this.#notes}
                 />
-            </>
+            </div>
         );
     }
 

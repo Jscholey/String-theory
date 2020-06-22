@@ -1,15 +1,7 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 
-/* 
-* Requires Props:
-* int min
-* int max
-* int number (current value)
-* func onUpdate
-* 
-* Requires string children
-*/
 class Slider extends React.Component {
     render() {
         return (
@@ -28,13 +20,29 @@ class Slider extends React.Component {
                     type="range"
                     min={this.props.min}
                     max={this.props.max}
-                    step={this.props.step != null ? this.props.step : 1}
+                    step={this.props.step}
                     onChange={this.props.onUpdate}
                 />
             </form>
         );
     }
 }
+
+Slider.defaultProps = {
+    step: 1
+};
+
+Slider.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.element,
+        PropTypes.string
+    ]).isRequired,
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
+    number: PropTypes.number.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    step: PropTypes.number
+};
 
 
 export default Slider;

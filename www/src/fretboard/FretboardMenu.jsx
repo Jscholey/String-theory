@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import Slider from "../resources/Slider.jsx";
 
@@ -38,6 +39,11 @@ class TuningsMenu extends React.Component {
     }
 }
 
+TuningsMenu.propTypes = {
+    strings: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
+
 
 class KeyMenu extends React.Component {
     render() {
@@ -62,6 +68,11 @@ class KeyMenu extends React.Component {
         );
     }
 }
+
+KeyMenu.propTypes = {
+    value: PropTypes.string.isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
 
 
 class ScaleMenu extends React.Component {
@@ -102,6 +113,11 @@ class ScaleMenu extends React.Component {
     }
 }
 
+ScaleMenu.propTypes = {
+    value: PropTypes.string.isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
+
 
 class FretboardMenu extends React.Component {
     render() {
@@ -111,16 +127,16 @@ class FretboardMenu extends React.Component {
                     <div className="menu-item">
                         <Slider
                             number={this.props.strings.length}
-                            min="1"
-                            max="12"
+                            min={1}
+                            max={12}
                             onUpdate={this.props.setStringNumber}
                         >
                             Strings
                         </Slider>
                         <Slider
                             number={this.props.frets}
-                            min="6"
-                            max="30"
+                            min={6}
+                            max={30}
                             onUpdate={this.props.setFretNumber}
                         >
                             Frets
@@ -138,6 +154,18 @@ class FretboardMenu extends React.Component {
         );
     }
 }
+    
+FretboardMenu.propTypes = {
+    strings: PropTypes.arrayOf(PropTypes.string).isRequired,
+    frets: PropTypes.number.isRequired,
+    musicKey: PropTypes.string.isRequired,
+    scale: PropTypes.string.isRequired,
+    setStringNumber: PropTypes.func.isRequired,
+    setStringTuning: PropTypes.func.isRequired,
+    setFretNumber: PropTypes.func.isRequired,
+    setMusicKey: PropTypes.func.isRequired,
+    setScale: PropTypes.func.isRequired
+};
 
 
 export default FretboardMenu;
