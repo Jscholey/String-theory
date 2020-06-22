@@ -27,6 +27,25 @@
     background-color: #0d7a7a;
 }
 
+.play-beats-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.play-beat {
+    height: 50px;
+    flex: 0 0 50px;
+    margin: 6px 12px 0 12px;
+    border: 2px solid var(--almost-black);
+    border-radius: 25px;
+    background-color: var(--main-bg-colour);
+}
+
+.play-beat-current {
+    background-color: #7a0d0d;
+}
+
 .play-button-container {
     width: 100%;
     display: flex;

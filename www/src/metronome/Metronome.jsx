@@ -82,6 +82,36 @@ SoundMenu.propTypes = {
 };
 
 
+class PlayBeats extends React.Component {
+    render() {
+        return (
+            <form className="play-beats-form">
+                {this.props.beats.map( (beatType, index) => {
+                    var name = "play-beat";
+                    if (index === this.props.currentBeat) {
+                        name += " play-beat-current";
+                    }
+                    return (
+                        <input
+                            type="button"
+                            className={name}
+                            key={index}
+                            onClick={() => {this.props.onUpdate(index);}}
+                        />
+                    );
+                })}
+            </form>
+        );
+    }
+}
+
+PlayBeats.propTypes = {
+    beats: PropTypes.arrayOf(PropTypes.number).isRequired,
+    currentBeat: PropTypes.number.isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
+
+
 class PlayButton extends React.Component {
     render() {
         return (
@@ -131,8 +161,9 @@ class Metronome extends React.Component {
     }
 
     setVolume = (event) => {
-        Howler.volume(event.target.value);
-        this.setState({volume: event.target.value});
+        var volume = Number(event.target.value);
+        Howler.volume(volume);
+        this.setState({volume: volume});
     }
 
     setSound = (beatType) => {
@@ -164,14 +195,15 @@ class Metronome extends React.Component {
     }
 
     setTempo = (event) => {
-        this.setState({tempo: event.target.value});
+        var t =  Number(event.target.value);
+        this.setState({tempo: t});
         if (this.state.play) {
-            this.changePlayTempo(event.target.value);
+            this.changePlayTempo(t);
         }
     }
 
     setBPB = (event) => {
-        var number = event.target.value;
+        var number = Number(event.target.value);
         if (number>=1 && number <=20) {
             this.setState((oldState) => {
                 var beats = oldState.beats;
@@ -183,18 +215,23 @@ class Metronome extends React.Component {
                     beats.length = len;
                     out = beats;
                 }
+                var currentBeat = oldState.currentBeat;
+                if (currentBeat >= len) {
+                    currentBeat = len-1;
+                }
                 return {
                     beatsPerBar: len,
-                    beats: out
+                    beats: out,
+                    currentBeat: currentBeat
                 };
             });
         }
     }
 
     setCPB = (event) => {
-        var number  = event.target.value;
+        var number  = Number(event.target.value);
         if (number>=1 && number<=8) {
-            this.setState({clicksPerBeat: event.target.value});
+            this.setState({clicksPerBeat: number});
         }
     }
 
@@ -204,6 +241,14 @@ class Metronome extends React.Component {
             var newBeatType = (beats[index] + 1) % 3;
             beats[index] = newBeatType;
             return {beats: beats};
+        });
+    }
+
+    setCurrentBeat = (index) => {
+        this.setState({currentBeat: index}, () => {
+            if (this.state.play) {
+                this.playBeat(this.state.tempo);
+            }
         });
     }
 
@@ -348,6 +393,11 @@ class Metronome extends React.Component {
                     label={"Off beats"}
                     value={this.state.srcOff}
                     onUpdate={this.setSound("off")}
+                />
+                <PlayBeats
+                    beats={this.state.beats}
+                    currentBeat={this.state.currentBeat}
+                    onUpdate={this.setCurrentBeat}
                 />
                 <PlayButton
                     play={this.state.play}
