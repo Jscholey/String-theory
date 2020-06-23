@@ -1,0 +1,71 @@
+.beats-form {
+    display: flex;}
+
+.beats-form-item {
+    flex: 1 0 100px;
+    min-width: 200px;
+}
+
+.beat-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.beat {
+    height: 30px;
+    flex: 0 0 30px;
+    margin: 0 8px;
+    border: 2px solid var(--almost-black);
+    border-radius: 15px;
+}
+
+.beat-weak {
+    background-color: #76dadb;
+}
+
+.beat-strong {
+    background-color: #0d7a7a;
+}
+
+.play-beats-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.play-beat {
+    height: 50px;
+    flex: 0 0 50px;
+    margin: 6px 12px 0 12px;
+    border: 2px solid var(--almost-black);
+    border-radius: 25px;
+    background-color: var(--main-bg-colour);
+}
+
+.play-beat-current {
+    background-color: #7a0d0d;
+}
+
+.play-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.play-button {
+    width: 120px;
+    height: 120px;
+    margin: 20px;
+    border: 2px solid var(--almost-black);
+    border-radius: 60px;
+    background-color: white;
+    background-image: url("/images/play.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.play-button-active {
+    background-color: #7a0d0d;
+    background-image: url("/images/pause.png");
+}

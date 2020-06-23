@@ -1,54 +1,6 @@
-import React from 'react';
-
-
-class StringNumber extends React.Component {
-    render() {
-        return (
-            <form className="form-number">
-                <label>Strings</label>
-                <input
-                    value={this.props.number}
-                    type="number"
-                    min="1"
-                    max="12"
-                    onChange={this.props.onUpdate}
-                />
-                <input
-                    value={this.props.number}
-                    type="range"
-                    min="1"
-                    max="12"
-                    onChange={this.props.onUpdate}
-                />
-            </form>
-        )
-    }
-}
-
-
-class FretNumber extends React.Component {
-    render() {
-        return (
-            <form className="form-number">
-                <label>Frets</label>
-                <input
-                    value={this.props.number}
-                    type="number"
-                    min="6"
-                    max="30"
-                    onChange={this.props.onUpdate}
-                />
-                <input
-                    value={this.props.number}
-                    type="range"
-                    min="6"
-                    max="30"
-                    onChange={this.props.onUpdate}
-                />
-            </form>
-        )
-    }
-}
+import PropTypes from "prop-types";
+import React from "react";
+import Slider from "../resources/Slider.jsx";
 
 
 class TuningsMenu extends React.Component {
@@ -57,33 +9,40 @@ class TuningsMenu extends React.Component {
             <form className="form-tunings">
                 <label>Tuning</label>
                 <div className="tunings-menu">
-                {this.props.strings.map( (stringNote, index) => {                    return (
-                        <select className="tunings-selector"
+                    {this.props.strings.map( (stringNote, index) => {
+                        return (
+                            <select
+                                className="tunings-selector"
                                 value={stringNote}
                                 id={index}
                                 key={index}
                                 onChange={this.props.onUpdate}
-                        >
-                            <option value="A">A</option>
-                            <option value="A#">A#</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="C#">C#</option>
-                            <option value="D">D</option>
-                            <option value="D#">D#</option>
-                            <option value="E">E</option>
-                            <option value="F">F</option>
-                            <option value="F#">F#</option>
-                            <option value="G">G</option>
-                            <option value="G#">G#</option>
-                        </select>
-                    )
-                })}
+                            >
+                                <option value="A">A</option>
+                                <option value="A#">A#</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="C#">C#</option>
+                                <option value="D">D</option>
+                                <option value="D#">D#</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="F#">F#</option>
+                                <option value="G">G</option>
+                                <option value="G#">G#</option>
+                            </select>
+                        );
+                    })}
                 </div>
             </form>
-        )
+        );
     }
 }
+
+TuningsMenu.propTypes = {
+    strings: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
 
 
 class KeyMenu extends React.Component {
@@ -106,9 +65,14 @@ class KeyMenu extends React.Component {
                     <option value="G#">G#</option>
                 </select>
             </form>
-        )
+        );
     }
 }
+
+KeyMenu.propTypes = {
+    value: PropTypes.string.isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
 
 
 class ScaleMenu extends React.Component {
@@ -145,9 +109,14 @@ class ScaleMenu extends React.Component {
                     </optgroup>
                 </select>
             </form>
-        )
+        );
     }
 }
+
+ScaleMenu.propTypes = {
+    value: PropTypes.string.isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
 
 
 class FretboardMenu extends React.Component {
@@ -156,8 +125,22 @@ class FretboardMenu extends React.Component {
             <div className="fretboard-menu">
                 <div className="menu-section">
                     <div className="menu-item">
-                        <StringNumber onUpdate={this.props.setStringNumber} number={this.props.strings.length}/>
-                        <FretNumber onUpdate={this.props.setFretNumber} number={this.props.frets}/>
+                        <Slider
+                            number={this.props.strings.length}
+                            min={1}
+                            max={12}
+                            onUpdate={this.props.setStringNumber}
+                        >
+                            Strings
+                        </Slider>
+                        <Slider
+                            number={this.props.frets}
+                            min={6}
+                            max={30}
+                            onUpdate={this.props.setFretNumber}
+                        >
+                            Frets
+                        </Slider>
                     </div>
                     <div className="menu-item">
                         <KeyMenu onUpdate={this.props.setMusicKey} value={this.props.musicKey}/>
@@ -168,9 +151,21 @@ class FretboardMenu extends React.Component {
                     <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
                 </div>
             </div>
-        )
+        );
     }
 }
+    
+FretboardMenu.propTypes = {
+    strings: PropTypes.arrayOf(PropTypes.string).isRequired,
+    frets: PropTypes.number.isRequired,
+    musicKey: PropTypes.string.isRequired,
+    scale: PropTypes.string.isRequired,
+    setStringNumber: PropTypes.func.isRequired,
+    setStringTuning: PropTypes.func.isRequired,
+    setFretNumber: PropTypes.func.isRequired,
+    setMusicKey: PropTypes.func.isRequired,
+    setScale: PropTypes.func.isRequired
+};
 
 
 export default FretboardMenu;

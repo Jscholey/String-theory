@@ -1,12 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import FretboardPage from './Fretboard.jsx'
+import Container from "./Container.jsx";
 
-import './normalise.css';
-import './fretboard.css';
+import "./normalise.css";
+import "./index.css";
+import "./fretboard/fretboard.css";
+import "./metronome/metronome.css";
 
 ReactDOM.render(
-    <FretboardPage />,
-    document.getElementById('root')
+    <Container />,
+    document.getElementById("root")
 );
