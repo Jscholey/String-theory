@@ -119,7 +119,6 @@ class PlayButton extends React.Component {
                 <input
                     type="button"
                     className={"play-button" + (this.props.play ? " play-button-active" : "")}
-                    value={this.props.play ? "⏸" : "⏵" }
                     onClick={this.props.onUpdate}
                 />
             </form>

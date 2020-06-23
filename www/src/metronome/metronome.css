@@ -53,16 +53,19 @@
 }
 
 .play-button {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     margin: 20px;
     border: 2px solid var(--almost-black);
-    border-radius: 50px;
-    font-size: 5em;
+    border-radius: 60px;
     background-color: white;
+    background-image: url("/images/play.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .play-button-active {
     background-color: #7a0d0d;
-    color: white;
+    background-image: url("/images/pause.png");
 }
