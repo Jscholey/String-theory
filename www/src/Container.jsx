@@ -9,7 +9,7 @@ class Container extends React.Component {
         super(props);
         this.state = {
             currentPage: "fretboard",
-            pages: ["fretboard", "metronome", "looper", "circle"]
+            pages: ["fretboard", "metronome"]
         };
     }
 
