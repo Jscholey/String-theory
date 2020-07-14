@@ -48,16 +48,22 @@ NoteString.propTypes = {
 
 class Frets extends React.Component {
     render() {
+        var frets = [...Array(this.props.frets).keys()];
+        if (this.props.lefty) {
+            frets.reverse();
+        }
+
         return (
             <div className="frets">
-                {[...Array(this.props.frets).keys()].map((val) => <div className="fret" key={val}>{val}</div>)}
+                {frets.map((val) => <div className="fret" key={val}>{val}</div>)}
             </div>
         );
     }
 }
 
 Frets.propTypes = {
-    frets: PropTypes.number.isRequired
+    frets: PropTypes.number.isRequired,
+    lefty: PropTypes.bool.isRequired
 };
 
 
@@ -75,6 +81,11 @@ class Fretboard extends React.Component {
             newNotes = newNotes.concat(newNotes);
             newNotes = newNotes.concat(newNotes.slice(0, frets - 24));
         }
+
+        if (this.props.lefty) {
+            newNotes.reverse();
+        }
+
         return newNotes;
     }
 
@@ -97,7 +108,7 @@ class Fretboard extends React.Component {
                         />
                     );
                 })}
-                <Frets frets={this.props.frets + 1}/>
+                <Frets frets={this.props.frets + 1} lefty={this.props.lefty}/>
             </div>
         );
     }
@@ -109,6 +120,7 @@ Fretboard.propTypes = {
     strings: PropTypes.arrayOf(PropTypes.string).isRequired,
     highlighted: PropTypes.arrayOf(PropTypes.string).isRequired,
     musicKey: PropTypes.string.isRequired,
+    lefty: PropTypes.bool.isRequired,
     changeHighlight: PropTypes.func.isRequired
 };
 
@@ -123,7 +135,8 @@ class FretboardPage extends React.Component {
             frets: 17,
             musicKey: "C",
             scale: "majorPent",
-            highlighted: ["A", "C", "D", "E", "G"]
+            highlighted: ["A", "C", "D", "E", "G"],
+            lefty: false
         };
     }
 
@@ -250,6 +263,12 @@ class FretboardPage extends React.Component {
         });
     }
 
+    setLefty = () => {
+        this.setState((oldState) => {
+            return {lefty: !oldState.lefty};
+        });
+    }
+
     render() {
         return (
             <div>
@@ -260,6 +279,7 @@ class FretboardPage extends React.Component {
                     setStringTuning={this.setStringTuning}
                     setMusicKey={this.setMusicKey}
                     setScale={this.setScale}
+                    setLefty={this.setLefty}
                 />
                 <Fretboard
                     {...this.state}

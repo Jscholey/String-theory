@@ -150,6 +150,12 @@ class FretboardMenu extends React.Component {
                 <div className="menu-section">
                     <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
                 </div>
+                <div className="menu-section">
+                    <form>
+                        <label htmlFor="lefty">Left handed</label>
+                        <input type="checkbox" name="lefty" value={this.props.lefty} onChange={this.props.setLefty}/>
+                    </form>
+                </div>
             </div>
         );
     }
@@ -160,11 +166,13 @@ FretboardMenu.propTypes = {
     frets: PropTypes.number.isRequired,
     musicKey: PropTypes.string.isRequired,
     scale: PropTypes.string.isRequired,
+    lefty: PropTypes.bool.isRequired,
     setStringNumber: PropTypes.func.isRequired,
     setStringTuning: PropTypes.func.isRequired,
     setFretNumber: PropTypes.func.isRequired,
     setMusicKey: PropTypes.func.isRequired,
-    setScale: PropTypes.func.isRequired
+    setScale: PropTypes.func.isRequired,
+    setLefty: PropTypes.func.isRequired
 };
 
 
