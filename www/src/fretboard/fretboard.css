@@ -17,9 +17,9 @@
 .tunings-menu {
     width: 100%;
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    flex-wrap: wrap-reverse;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 .tunings-selector {

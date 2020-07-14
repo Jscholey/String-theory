@@ -3,11 +3,96 @@ import React from "react";
 import Slider from "../resources/Slider.jsx";
 
 
+class PresetTuningsMenu extends React.Component {
+    #tunings = {
+        standard: ["E", "A", "D", "G", "B", "E"],
+        openA: ["E", "A", "C#", "E", "A", "E"],
+        openC: ["C", "G", "C", "G", "C", "E"],
+        openD: ["D", "A", "D", "F#", "A", "D"],
+        openE: ["E", "B", "E", "G#", "B", "E"],
+        openG: ["D", "G", "D", "G", "B", "D"],
+        openAminor: ["E", "A", "E", "A", "C", "E"],
+        openDminor: ["D", "A", "D", "F", "A", "D"],
+        fourths: ["E", "A", "D", "G", "C", "F"],
+        dropD: ["D", "A", "D", "G", "B", "E"],
+        dropC: ["C", "G", "C", "F", "A", "D"],
+        doubleDropD: ["D", "A", "D", "G", "B", "D"],
+        doubleDropC: ["C", "G", "C", "F", "A", "C"],
+        standardD: ["D", "G", "C", "F", "A", "D"],
+        dadgad: ["D", "A", "D", "G", "A", "D"],
+        daddad: ["D", "A", "D", "D", "A", "D"],
+        ukeStandard: ["G", "C", "E", "A"],
+        ukeBaritone: ["D", "G", "B", "E"],
+        bass: ["E", "A", "D", "G"],
+        bass5: ["B", "E", "A", "D", "G"],
+        bass6: ["B", "E", "A", "D", "G", "C"],
+        banjo: ["G", "D", "G", "B", "D"],
+        mandolin: ["G", "D", "A", "E"],
+    };
+
+    render() {
+        var currentTuning = "other";
+
+        // Iterate over keys in dictionary
+        for (var key in this.#tunings) {
+            if (this.#tunings.hasOwnProperty(key)) {
+                let value = this.#tunings[key];
+                // check if the current tuning array and the one associated with the current key match
+                if (this.props.tuning.length === value.length && this.props.tuning.every((v, i) => v === value[i])) {
+                    currentTuning = key;
+                    break;
+                }
+            }
+        }
+
+        return (
+            <form>
+                <label>Tuning</label>
+                <select value={currentTuning} onChange={(event) => this.props.onUpdate(JSON.parse(JSON.stringify(this.#tunings[event.target.value])))}> {/*use JSON to make a deep copy of array*/}
+                    {currentTuning === "other" ? <option value="other">Other</option> : ""}
+                    <optgroup label="Guitar">
+                        <option value="standard">Standard</option>
+                        <option value="standardD">D Standard</option>
+                        <option value="dropD">Drop D</option>
+                        <option value="dropC">Drop C</option>
+                        <option value="doubleDropD">Double Drop D</option>
+                        <option value="doubleDropC">Double Drop C</option>
+                        <option value="openA">Open A</option>
+                        <option value="openC">Open C</option>
+                        <option value="openD">Open D</option>
+                        <option value="openE">Open E</option>
+                        <option value="openG">Open G</option>
+                        <option value="openAminor">Open A Minor</option>
+                        <option value="openDminor">Open D Minor</option>
+                        <option value="fourths">Fourths</option>
+                        <option value="dadgad">DADGAD</option>
+                        <option value="daddad">DADDAD</option>
+                    </optgroup>
+                    <optgroup label="Bass">
+                        <option value="bass">Bass</option>
+                        <option value="bass5">5 String Bass</option>
+                        <option value="bass6">6 String Bass</option>
+                    </optgroup>
+                    <option value="ukeStandard">Ukelele</option>
+                    <option value="ukeBaritone">Baritone Ukelele</option>
+                    <option value="banjo">Banjo</option>
+                    <option value="mandolin">Mandolin</option>
+                </select>
+            </form>
+        );
+    }
+}
+
+PresetTuningsMenu.propTypes = {
+    tuning: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onUpdate: PropTypes.func.isRequired
+};
+
+
 class TuningsMenu extends React.Component {
     render() {
         return (
             <form className="form-tunings">
-                <label>Tuning</label>
                 <div className="tunings-menu">
                     {this.props.strings.map( (stringNote, index) => {
                         return (
@@ -149,6 +234,7 @@ class FretboardMenu extends React.Component {
                 </div>
                 <div className="menu-section">
                     <TuningsMenu onUpdate={this.props.setStringTuning} strings={this.props.strings}/>
+                    <PresetTuningsMenu tuning={this.props.strings} onUpdate={this.props.setTuning} />
                 </div>
                 <div className="menu-section">
                     <form>
@@ -169,6 +255,7 @@ FretboardMenu.propTypes = {
     lefty: PropTypes.bool.isRequired,
     setStringNumber: PropTypes.func.isRequired,
     setStringTuning: PropTypes.func.isRequired,
+    setTuning: PropTypes.func.isRequired,
     setFretNumber: PropTypes.func.isRequired,
     setMusicKey: PropTypes.func.isRequired,
     setScale: PropTypes.func.isRequired,

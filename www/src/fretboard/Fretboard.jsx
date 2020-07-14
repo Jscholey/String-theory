@@ -95,6 +95,8 @@ class Fretboard extends React.Component {
             strings.push(this.orderNotes(note));
         }
 
+        strings.reverse();
+
         return (
             <div>
                 {strings.map( (stringNotes, index) => {
@@ -131,7 +133,7 @@ class FretboardPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            strings: ["E", "B", "G", "D", "A", "E"], // String tunings from high e to low E
+            strings: ["E", "A", "D", "G", "B", "E"], // String tunings from high e to low E
             frets: 17,
             musicKey: "C",
             scale: "majorPent",
@@ -160,12 +162,11 @@ class FretboardPage extends React.Component {
             this.setState(oldState => {
                 var strings = oldState.strings;
                 if (strings.length >= number) {
-                    strings.length = number;
+                    strings = strings.slice(strings.length-number);
                     return {strings: strings};
                 } else {
-                    var full = ["E", "B", "G", "D", "A", "E", "B", "F", "C", "G", "A", "A"];
-                    strings = strings.concat(full.slice(strings.length));
-                    strings.length = number;
+                    var full = ["A", "A", "G", "C", "F", "B", "E", "A", "D", "G", "B", "E"];
+                    strings = full.slice(full.length-number);
                     return {strings: strings};
                 }
             });
@@ -187,6 +188,10 @@ class FretboardPage extends React.Component {
             tuning[index] = value;
             return {strings: tuning};
         });
+    }
+
+    setTuning = (arr) => {
+        this.setState({strings: arr});
     }
 
     getScaleNotes = (scale, key) => {
@@ -277,6 +282,7 @@ class FretboardPage extends React.Component {
                     setStringNumber={this.setStringNumber}
                     setFretNumber={this.setFretNumber}
                     setStringTuning={this.setStringTuning}
+                    setTuning={this.setTuning}
                     setMusicKey={this.setMusicKey}
                     setScale={this.setScale}
                     setLefty={this.setLefty}
