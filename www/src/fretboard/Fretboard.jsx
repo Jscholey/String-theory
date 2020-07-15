@@ -48,16 +48,22 @@ NoteString.propTypes = {
 
 class Frets extends React.Component {
     render() {
+        var frets = [...Array(this.props.frets).keys()];
+        if (this.props.lefty) {
+            frets.reverse();
+        }
+
         return (
             <div className="frets">
-                {[...Array(this.props.frets).keys()].map((val) => <div className="fret" key={val}>{val}</div>)}
+                {frets.map((val) => <div className="fret" key={val}>{val}</div>)}
             </div>
         );
     }
 }
 
 Frets.propTypes = {
-    frets: PropTypes.number.isRequired
+    frets: PropTypes.number.isRequired,
+    lefty: PropTypes.bool.isRequired
 };
 
 
@@ -75,6 +81,11 @@ class Fretboard extends React.Component {
             newNotes = newNotes.concat(newNotes);
             newNotes = newNotes.concat(newNotes.slice(0, frets - 24));
         }
+
+        if (this.props.lefty) {
+            newNotes.reverse();
+        }
+
         return newNotes;
     }
 
@@ -83,6 +94,8 @@ class Fretboard extends React.Component {
         for (var note of this.props.strings) {
             strings.push(this.orderNotes(note));
         }
+
+        strings.reverse();
 
         return (
             <div>
@@ -97,7 +110,7 @@ class Fretboard extends React.Component {
                         />
                     );
                 })}
-                <Frets frets={this.props.frets + 1}/>
+                <Frets frets={this.props.frets + 1} lefty={this.props.lefty}/>
             </div>
         );
     }
@@ -109,6 +122,7 @@ Fretboard.propTypes = {
     strings: PropTypes.arrayOf(PropTypes.string).isRequired,
     highlighted: PropTypes.arrayOf(PropTypes.string).isRequired,
     musicKey: PropTypes.string.isRequired,
+    lefty: PropTypes.bool.isRequired,
     changeHighlight: PropTypes.func.isRequired
 };
 
@@ -119,11 +133,12 @@ class FretboardPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            strings: ["E", "B", "G", "D", "A", "E"], // String tunings from high e to low E
+            strings: ["E", "A", "D", "G", "B", "E"], // String tunings from high e to low E
             frets: 17,
             musicKey: "C",
             scale: "majorPent",
-            highlighted: ["A", "C", "D", "E", "G"]
+            highlighted: ["A", "C", "D", "E", "G"],
+            lefty: false
         };
     }
 
@@ -147,12 +162,11 @@ class FretboardPage extends React.Component {
             this.setState(oldState => {
                 var strings = oldState.strings;
                 if (strings.length >= number) {
-                    strings.length = number;
+                    strings = strings.slice(strings.length-number);
                     return {strings: strings};
                 } else {
-                    var full = ["E", "B", "G", "D", "A", "E", "B", "F", "C", "G", "A", "A"];
-                    strings = strings.concat(full.slice(strings.length));
-                    strings.length = number;
+                    var full = ["A", "A", "G", "C", "F", "B", "E", "A", "D", "G", "B", "E"];
+                    strings = full.slice(full.length-number);
                     return {strings: strings};
                 }
             });
@@ -174,6 +188,10 @@ class FretboardPage extends React.Component {
             tuning[index] = value;
             return {strings: tuning};
         });
+    }
+
+    setTuning = (arr) => {
+        this.setState({strings: arr});
     }
 
     getScaleNotes = (scale, key) => {
@@ -250,6 +268,12 @@ class FretboardPage extends React.Component {
         });
     }
 
+    setLefty = () => {
+        this.setState((oldState) => {
+            return {lefty: !oldState.lefty};
+        });
+    }
+
     render() {
         return (
             <div>
@@ -258,8 +282,10 @@ class FretboardPage extends React.Component {
                     setStringNumber={this.setStringNumber}
                     setFretNumber={this.setFretNumber}
                     setStringTuning={this.setStringTuning}
+                    setTuning={this.setTuning}
                     setMusicKey={this.setMusicKey}
                     setScale={this.setScale}
+                    setLefty={this.setLefty}
                 />
                 <Fretboard
                     {...this.state}
