@@ -1,5 +1,4 @@
 # String-theory
-https://stringtheory.herokuapp.com/
 
 A website with guitar related applications.
 
@@ -17,16 +16,3 @@ Interactive fretboard.
 ### Metronome
 - Change the time signature, tempo, volume, and sound.
 
-## Possible future features
-
-### Intervals trainer
-- Learn the fancy names for all the intervals.
-
-### Online loop pedal
-- Record with microphone and loop recording.
-- Use multiple layers, and add and remove layers.
-- Combine with metronome.
-
-### Circle of fifths
-- Moveable circle of fifths.
-- Chords in a key.
